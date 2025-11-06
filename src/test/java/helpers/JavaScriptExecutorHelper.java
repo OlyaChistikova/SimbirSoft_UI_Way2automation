@@ -34,12 +34,4 @@ public class JavaScriptExecutorHelper {
     public void scrollByKeyboard() {
         ((JavascriptExecutor) driver).executeScript("var event = new KeyboardEvent('keydown', {'key':'ArrowDown'}); document.dispatchEvent(event);");
     }
-
-    /**
-     * Выполнение произвольного JavaScript-кода.
-     * @param script JavaScript-код.
-     */
-    public void executeScript(String script) {
-        ((JavascriptExecutor) driver).executeScript(script);
-    }
 }
