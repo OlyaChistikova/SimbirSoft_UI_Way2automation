@@ -1,15 +1,13 @@
 package tests;
 
-import helpers.InputData;
-import helpers.OutputData;
+import data.InputData;
+import data.OutputData;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.BankingHomePage;
 import pages.SampleFormPage;
-
-import static helpers.EndPoint.BANKING;
 
 public class SampleFormTest extends BaseTest{
     private WebDriver driver;
@@ -19,15 +17,18 @@ public class SampleFormTest extends BaseTest{
     @BeforeClass
     public void setUrl() {
         driver = getDriver();
-        driver.get(BANKING.getUrl());
         bankingHomePage = new BankingHomePage(driver);
+        bankingHomePage.openPage();
     }
 
     @Test(description = "Проверка регистрации")
     public void checkRegistrationCustomerTest() {
         sampleFormPage = bankingHomePage.openSampleForm();
         Assert.assertTrue(sampleFormPage.checkVisibilityRegistrationFields());
-        sampleFormPage.setValuesFields(InputData.firstNameRegistration, InputData.lastNameRegistration, InputData.emailRegistration, InputData.passwordRegistration)
+        sampleFormPage.setFirstName(InputData.firstNameRegistration)
+                        .setLastName(InputData.lastNameRegistration)
+                        .setEmail(InputData.emailRegistration)
+                        .setPassword(InputData.passwordRegistration)
                         .selectExpectedHobby(InputData.hobbyExpectedRegistration)
                         .selectGender(InputData.genderRegistration)
                         .setAboutTextArea(sampleFormPage.getLongestHobby())
