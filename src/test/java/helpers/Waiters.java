@@ -42,11 +42,11 @@ public class Waiters {
     }
 
     /**
-     * Установка неявного ожидания
+     * Установка паузы
      */
-    public static void setImplicitWait() {
+    public static void setPause() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
