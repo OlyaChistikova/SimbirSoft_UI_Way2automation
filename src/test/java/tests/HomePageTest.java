@@ -1,7 +1,7 @@
 package tests;
 
-import helpers.EndPoint;
-import helpers.OutputData;
+import data.EndPoint;
+import data.OutputData;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -10,8 +10,6 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.MembershipPage;
 
-import static helpers.EndPoint.HOME;
-
 public class HomePageTest extends BaseTest {
     private WebDriver driver;
     private HomePage homePage;
@@ -19,11 +17,11 @@ public class HomePageTest extends BaseTest {
     @BeforeClass
     public void setUrl() {
         driver = getDriver();
-        driver.get(HOME.getUrl());
         homePage = new HomePage(driver);
+        homePage.openPage();
     }
 
-    @Test(description = "Проверка наличия всех основных элементов страницы", priority = 1)
+    @Test(description = "Проверка наличия всех основных элементов страницы")
     public void checkOpenPageTest() {
         Assert.assertTrue(homePage.checkDisplayHeader(), "Header not found");
         Assert.assertTrue(homePage.checkDisplayBlockNavigation(), "Block Navigation not found");
@@ -33,35 +31,35 @@ public class HomePageTest extends BaseTest {
         Assert.assertTrue(homePage.checkDisplayFooter(), "Footer not found");
     }
 
-    @Test(description = "Проверка наличия контактной информации верхнего меню", priority = 2)
+    @Test(description = "Проверка наличия контактной информации верхнего меню")
     public void displayAndCheckContactInfoHeaderTest() {
         Assert.assertTrue(homePage.checkDisplayHeader(), "Header not found");
         Assert.assertEquals(homePage.getContactInfoHeader(), OutputData.EXPECTED_CONTACTS_HEADER);
         Assert.assertEquals(homePage.getMessengerInfoHeader(), OutputData.EXPECTED_MESSENGER_HEADER);
     }
 
-    @Test(description = "Проверка наличия верхнего меню (блока с навигацией)", priority = 3)
+    @Test(description = "Проверка наличия верхнего меню (блока с навигацией)")
     public void checkNavigationBlock() {
         Assert.assertTrue(homePage.checkDisplayBlockNavigation());
         Assert.assertEquals(homePage.getBlockNavigationText(), OutputData.EXPECTED_BLOG_HEADER);
         //Проверка кнопок навигации (вперед и назад): работают корректно (меняют слайды) - не работают
     }
 
-    @Test(description = "Проверка наличия меню навигации после скролла", priority = 4)
+    @Test(description = "Проверка наличия меню навигации после скролла")
     public void checkNavigationBlockAfterScrollingTest() {
         homePage.scrollToBottom();
         Assert.assertTrue(homePage.checkDisplayBlockNavigation(), "Header not found");
         Assert.assertEquals(homePage.getBlockNavigationText(), OutputData.EXPECTED_BLOG_HEADER);
     }
 
-    @Test(description = "Проверка наличия контактной информации нижнего меню", priority = 5)
+    @Test(description = "Проверка наличия контактной информации нижнего меню")
     public void displayAndCheckContactInfoFooterTest() {
         homePage.scrollToBottom();
         Assert.assertTrue(homePage.checkDisplayFooter());
         Assert.assertEquals(homePage.getFooterContactInfo(), OutputData.EXPECTED_CONTACTS_FOOTER);
     }
 
-    @Test(description = "Проверка перехода по меню навигации на другие страницы", priority = 6)
+    @Test(description = "Проверка перехода по меню навигации на другие страницы")
     public void openMembershipPage() {
         MembershipPage membershipPage = homePage.getMembershipPage();
         Assert.assertEquals(membershipPage.getTitlePage(), OutputData.membershipTitle);
