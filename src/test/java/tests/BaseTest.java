@@ -3,25 +3,29 @@ package tests;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 
 import java.time.Duration;
 
 @Getter
 public class BaseTest {
     private WebDriver driver;
+    protected boolean useIncognito = false;
 
-    @BeforeSuite
+    @BeforeClass
     public void setUp(){
-        driver = new ChromeDriver();
+        driver = createDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-    @AfterSuite
+    protected WebDriver createDriver() {
+        return new ChromeDriver();
+    }
+
+    @AfterClass
     public void tearDown(){
         if (driver != null){
             driver.quit();
