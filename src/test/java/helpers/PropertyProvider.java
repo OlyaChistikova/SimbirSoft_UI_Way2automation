@@ -7,11 +7,11 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Класс-синглтон для загрузки и предоставления свойств из env_local.properties.
+ * Класс-синглтон для загрузки и предоставления свойств из config.properties.
  */
 public class PropertyProvider {
     private static PropertyProvider instance;
-    private static final String filePath = "env_local.properties";
+    private static final String filePath = "config.properties";
     @Getter
     private final Properties properties = new Properties();
 
@@ -32,7 +32,7 @@ public class PropertyProvider {
     }
 
     /**
-     * Приватный конструктор, который загружает свойства из env_local.properties.
+     * Приватный конструктор, который загружает свойства из config.properties.
      */
     private PropertyProvider(){
         try(InputStream propertiesInputStream =
