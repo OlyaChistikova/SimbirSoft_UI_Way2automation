@@ -1,7 +1,7 @@
 package pages;
 
-import helpers.EndPoint;
-import helpers.InputData;
+import data.EndPoint;
+import data.InputData;
 import helpers.Waiters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
