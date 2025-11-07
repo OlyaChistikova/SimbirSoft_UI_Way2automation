@@ -1,6 +1,6 @@
 package pages;
 
-import helpers.EndPoint;
+import data.EndPoint;
 import helpers.Waiters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -92,16 +92,41 @@ public class SampleFormPage {
     }
 
     /**
-     * Заполняет поля формы значениями
+     * Заполняет поле имени
      * @param firstName Имя
-     * @param lastName Фамилия
-     * @param email Электронная почта
-     * @param password Пароль
+     * @return текущая страница
      */
-    public SampleFormPage setValuesFields(String firstName, String lastName, String email, String password) {
+    public SampleFormPage setFirstName(String firstName) {
         firstnameField.sendKeys(firstName);
+        return this;
+    }
+
+    /**
+     * Заполняет поле фамилии
+     * @param lastName Фамилия
+     * @return текущая страница
+     */
+    public SampleFormPage setLastName(String lastName) {
         lastNameField.sendKeys(lastName);
+        return this;
+    }
+
+    /**
+     * Заполняет поле электронной почты
+     * @param email Электронная почта
+     * @return текущая страница
+     */
+    public SampleFormPage setEmail(String email) {
         emailField.sendKeys(email);
+        return this;
+    }
+
+    /**
+     * Заполняет поле пароля
+     * @param password Пароль
+     * @return текущая страница
+     */
+    public SampleFormPage setPassword(String password) {
         passwordField.sendKeys(password);
         return this;
     }
