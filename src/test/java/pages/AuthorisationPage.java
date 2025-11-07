@@ -6,8 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import static data.EndPoint.AUTHORISATION;
+
 public class AuthorisationPage{
     private WebDriver driver;
+    private static final String URL = AUTHORISATION.getUrl();
 
     /**
      * Локатор поля ввода логина (username)
@@ -47,6 +50,13 @@ public class AuthorisationPage{
     public AuthorisationPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+    }
+
+    /**
+     * Открытие страницы по URL
+     */
+    public void openPage() {
+        driver.get(URL);
     }
 
     /**
