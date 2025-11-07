@@ -1,4 +1,6 @@
-package helpers;
+package data;
+
+import helpers.PropertyProvider;
 
 import java.util.Arrays;
 import java.util.List;

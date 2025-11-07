@@ -1,5 +1,6 @@
-package helpers;
+package data;
 
+import helpers.PropertyProvider;
 import lombok.Getter;
 
 /**

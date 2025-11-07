@@ -1,4 +1,6 @@
-package helpers;
+package data;
+
+import helpers.PropertyProvider;
 
 public class InputData {
 
@@ -18,7 +20,7 @@ public class InputData {
     public static final String emailRegistration = PropertyProvider.getProperty("emailRegistration");
 
     // Пароль для регистрации
-    public static final String passwordRegistration = PropertyProvider.getProperty("passwordRegistration");
+    public static final String passwordRegistration = System.getenv("REG_PASSWORD") != null ? System.getenv("REG_PASSWORD") : "";
 
     // Ожидаемое хобби при регистрации (используется для проверки или выбора)
     public static final String hobbyExpectedRegistration = PropertyProvider.getProperty("hobbyExpectedRegistration");
