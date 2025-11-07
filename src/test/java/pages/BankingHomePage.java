@@ -5,8 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import static data.EndPoint.BANKING;
+
 public class BankingHomePage {
     private WebDriver driver;
+    private static final String URL = BANKING.getUrl();
 
     /**
      * Локатор каталога "Sample Form"
@@ -34,6 +37,13 @@ public class BankingHomePage {
     public BankingHomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+    }
+
+    /**
+     * Открытие страницы по URL
+     */
+    public void openPage() {
+        driver.get(URL);
     }
 
     /**
