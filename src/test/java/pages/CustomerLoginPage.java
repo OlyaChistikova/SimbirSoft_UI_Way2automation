@@ -1,6 +1,6 @@
 package pages;
 
-import helpers.EndPoint;
+import data.EndPoint;
 import helpers.Waiters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -13,16 +13,10 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 import java.util.Random;
 
-import static helpers.EndPoint.CUSTOMER_LOGIN;
+import static data.EndPoint.CUSTOMER_LOGIN;
 
 public class CustomerLoginPage {
     private WebDriver driver;
-
-    /**
-     *     Локатор формы входа/выбора клиента
-     */
-    @FindBy(xpath = "//form[@ng-submit='showAccount()']")
-    private WebElement customerContainer;
 
     /**
      * Локатор выпадающего списка для выбора пользователя
@@ -35,6 +29,12 @@ public class CustomerLoginPage {
      */
     @FindBy(xpath = "//button[@ng-show=\"custId != ''\"]")
     private WebElement loginButton;
+
+    /**
+     *
+     */
+    @FindBy(xpath = "//button[@ng-click='byebye()']")
+    private WebElement logoutButton;
 
     /**
      * Локатор приветственного сообщения после входа
@@ -131,14 +131,14 @@ public class CustomerLoginPage {
     }
 
     /**
-     * Проверяет отображение контейнера клиента
+     * Проверяет отображение контейнера выбора пользователя
      *
      * @return true, если контейнер видим
      */
-    public boolean checkVisibilityCustomerContainer() {
-        Waiters.waitTimeForVisibilityOfElement(driver, customerContainer);
+    public boolean checkVisibilityUserSelect() {
+        Waiters.waitTimeForVisibilityOfElement(driver, userSelect);
         Waiters.waitTimeForCheckUrl(driver, CUSTOMER_LOGIN.getUrl());
-        return customerContainer.isDisplayed();
+        return userSelect.isDisplayed();
     }
 
     /**
@@ -165,7 +165,7 @@ public class CustomerLoginPage {
     /**
      * Нажимает кнопку входа и проверяет успешный вход
      *
-     * @return true, если успешное сообщение отображается
+     * @return true, если приветственное сообщение отображается
      */
     public boolean clickLoginButton() {
         checkVisibilityLoginButton();
@@ -197,24 +197,18 @@ public class CustomerLoginPage {
 
     /**
      * Открывает вкладку депозита
-     *
-     * @return true, если вкладка и поле суммы отображаются
      */
-    public boolean clickDepositCatalog() {
+    public void clickDepositCatalog() {
         checkVisibilityOfElement(depositCatalog, EndPoint.ACCOUNT.getUrl());
         depositCatalog.click();
-        return checkVisibilityOfElement(amountField, EndPoint.ACCOUNT.getUrl());
     }
 
     /**
      * Открывает вкладку снятия средств
-     *
-     * @return true, если вкладка и поле суммы отображаются
      */
-    public boolean clickWithdrawlCatalog() {
+    public void clickWithdrawlCatalog() {
         checkVisibilityOfElement(withdrawlCatalog, EndPoint.ACCOUNT.getUrl());
         withdrawlCatalog.click();
-        return checkVisibilityOfElement(amountField, EndPoint.ACCOUNT.getUrl());
     }
 
     /**
@@ -247,7 +241,7 @@ public class CustomerLoginPage {
     }
 
     /**
-     * Проверяет, исчезло ли сообщение
+     * Проверяет исчезновение сообщения
      *
      * @param message сообщение для сравнения
      * @return true, если сообщение исчезло
@@ -263,7 +257,7 @@ public class CustomerLoginPage {
      * @return true, если отображается сумма транзакции
      */
     public boolean clickTransactionsCatalog() {
-        Waiters.setImplicitWait();
+        Waiters.setPause();
         transactionsCatalog.click();
         return checkVisibilityTransactionAmount();
     }
@@ -296,9 +290,9 @@ public class CustomerLoginPage {
     }
 
     /**
-     * Получает баланс счета
+     * Получает текущий баланс
      *
-     * @return баланс как строку
+     * @return баланс как строка
      */
     public String getBalance() {
         return balanceField.getText();
@@ -355,7 +349,7 @@ public class CustomerLoginPage {
     /**
      * Сбросить состояние транзакций
      *
-     * @return текущий объект
+     * @return текущий объект страницы
      */
     public CustomerLoginPage clickButtonReset() {
         buttonReset.click();
@@ -373,7 +367,7 @@ public class CustomerLoginPage {
     }
 
     /**
-     * Получает случайное число, не превышающее баланс
+     * Получает случайное число, не превышающее текущий баланс
      *
      * @return случайное число
      */
@@ -382,5 +376,49 @@ public class CustomerLoginPage {
         int maxBalance = Integer.parseInt(balanceText);
         Random rand = new Random();
         return rand.nextInt(maxBalance) + 1;
+    }
+
+    /**
+     * Выполняет выход пользователя
+     */
+    public void logoutUser() {
+        logoutButton.click();
+    }
+
+    /**
+     * Выбирает пользователя по имени
+     *
+     * @param firstName имя
+     * @param lastName фамилия
+     * @return текущий объект страницы
+     */
+    public CustomerLoginPage openCustomer(String firstName, String lastName) {
+        this.selectUser(firstName + " " + lastName);
+        this.clickLoginButton();
+        return this;
+    }
+
+    /**
+     * Устанавливает сумму, затем выполняет пополнение
+     *
+     * @param amount сумма для пополнения
+     */
+    public void setRefillAccount(String amount) {
+        this.clickDepositCatalog();
+        this.setAmountField(amount).clickButtonDeposit();
+        this.clickTransactionsCatalog();
+        this.clickBackButton();
+    }
+
+    /**
+     * Устанавливает сумму, затем выполняет снятие денег
+     *
+     * @param amount сумма для снятия
+     */
+    public void setWithdrawalMoney(String amount) {
+        this.clickWithdrawlCatalog();
+        this.setAmountField(amount).clickWithdrawlButton();
+        this.clickTransactionsCatalog();
+        this.clickBackButton();
     }
 }
