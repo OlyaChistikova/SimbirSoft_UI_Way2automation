@@ -2,7 +2,6 @@ package pages;
 
 import helpers.JavaScriptExecutorHelper;
 import helpers.Waiters;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -12,13 +11,18 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import static data.EndPoint.HOME;
+
 public class HomePage{
-    private WebDriver driver;
+    private final WebDriver driver;
     JavaScriptExecutorHelper jsHelper;
+    private static final String URL = HOME.getUrl();
+
+
     /**
      * Локатор контейнера хедера страницы с контактной информацией
      */
-    @FindBy(id = "ast-desktop-header")//переписать локатор на контейнер хедера с контактной информацией
+    @FindBy(xpath = "//div[@class='ast-above-header-wrap  ']")
     private WebElement headerContactInfoContainer;
 
     /**
@@ -100,6 +104,13 @@ public class HomePage{
         this.driver = driver;
         PageFactory.initElements(driver, this);
         jsHelper = new JavaScriptExecutorHelper(driver);
+    }
+
+    /**
+     * Открытие страницы по URL
+     */
+    public void openPage() {
+        driver.get(URL);
     }
 
     /**
@@ -222,7 +233,7 @@ public class HomePage{
      */
     public HomePage closePopUp() {
         jsHelper.scrollByKeyboard();
-        Waiters.setImplicitWait();
+        Waiters.waitTimeForVisibilityOfElement(driver, closePopUpButton);
         closePopUpButton.click();
         return this;
     }
