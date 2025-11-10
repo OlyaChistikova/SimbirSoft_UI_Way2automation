@@ -10,7 +10,12 @@
 - **TestNG**: '7.11.0'
 - **ChromeDriver**: '142.0.7444.60'
 - **Maven**: '4.0.0'
+- **Allure**: '2.24.0'
 
 ## Запуск тестов 
 
 - **tests_default** - mvn clean test -P testng.xml  
+
+## Формирование отчета
+
+- allure serve
