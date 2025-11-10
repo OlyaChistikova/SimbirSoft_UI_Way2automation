@@ -1,6 +1,7 @@
 package pages;
 
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,7 @@ public class CustAllert {
      * Принимает (закрывает) всплывающее сообщение (алерт).
      * Перед закрытием алерта ожидает его появления.
      */
+    @Step("Принимаем (закрываем) всплывающее окно")
     public void accept() {
         waitForAlert();
         Alert alert = driver.switchTo().alert();
@@ -32,6 +34,7 @@ public class CustAllert {
      *
      * @return текст алерта.
      */
+    @Step("Проверяем текст окна подтверждения операции")
     public String getAlertText() {
         waitForAlert();
         Alert alert = driver.switchTo().alert();

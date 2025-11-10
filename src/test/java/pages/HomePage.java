@@ -2,6 +2,7 @@ package pages;
 
 import helpers.JavaScriptExecutorHelper;
 import helpers.Waiters;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -104,12 +105,6 @@ public class HomePage{
         this.driver = driver;
         PageFactory.initElements(driver, this);
         jsHelper = new JavaScriptExecutorHelper(driver);
-    }
-
-    /**
-     * Открытие страницы по URL
-     */
-    public void openPage() {
         driver.get(URL);
     }
 
@@ -118,15 +113,17 @@ public class HomePage{
      * Использует явное ожидание, чтобы убедиться, что элемент видим.
      * @return true, если контейнер отображается, иначе false
      */
+    @Step("Проверяем отображение контактной информации в хедере")
     public boolean checkDisplayHeader() {
         Waiters.waitTimeForVisibilityOfElement(driver, headerContactInfoContainer);
         return headerContactInfoContainer.isDisplayed();
     }
 
     /**
-     * Получает список текстовых значений контактов из хедера.
+     * Получает список контактов из хедера.
      * @return список строк с контактной информацией
      */
+    @Step("Проверяем список контактов из хедера")
     public List<String> getContactInfoHeader() {
         List<String> list = new ArrayList<>();
         for (WebElement item : headerContactInfoList) {
@@ -139,6 +136,7 @@ public class HomePage{
      * Получает список ссылок на мессенджеры из хедера.
      * @return список URL-адресов (атрибут href) мессенджеров
      */
+    @Step("Проверяем список ссылок на мессенджеры из хедера")
     public List<String> getMessengerInfoHeader() {
         List<String> list = new ArrayList<>();
         for (WebElement item : headerMessengerInfo) {
@@ -152,15 +150,17 @@ public class HomePage{
      * Использует явное ожидание кликабельности элемента.
      * @return true, если блок навигации отображается, иначе false
      */
+    @Step("Проверяем отображение блока навигации в шапке сайта")
     public boolean checkDisplayBlockNavigation() {
         Waiters.waitTimeForClickableElement(driver, headerBlockNavigationContainer);
         return headerBlockNavigationContainer.isDisplayed();
     }
 
     /**
-     * Получает список текста пунктов блока навигации.
+     * Получает список элементов блока навигации.
      * @return список названий пунктов меню
      */
+    @Step("Проверяем список элементов блока навигации")
     public List<String> getBlockNavigationText() {
         List<String> list = new ArrayList<>();
         for (WebElement item : headerBlockNavigationList) {
@@ -174,6 +174,7 @@ public class HomePage{
      * Использует явное ожидание кликабельности.
      * @return true, если кнопка отображается, иначе false
      */
+    @Step("Проверяем отображение кнопки регистрации")
     public boolean checkDisplayRegistrationButton() {
         Waiters.waitTimeForClickableElement(driver, registrationButton);
         return registrationButton.isDisplayed();
@@ -184,6 +185,7 @@ public class HomePage{
      * Использует явное ожидание видимости элемента.
      * @return true, если блок отображается, иначе false
      */
+    @Step("Проверяем отображение блока с курсами")
     public boolean checkDisplayCoursesList() {
         Waiters.waitTimeForVisibilityOfElement(driver, coursesList);
         return coursesList.isDisplayed();
@@ -193,6 +195,7 @@ public class HomePage{
      * Проверяет, отображается ли контейнер футера страницы.
      * @return true, если футер виден
      */
+    @Step("Проверяем отображение футера страницы")
     public boolean checkDisplayFooter() {
         return footerContainer.isDisplayed();
     }
@@ -202,6 +205,7 @@ public class HomePage{
      * Также очищает первый элемент, удаляя лишний текст.
      * @return список строк с контактной информацией
      */
+    @Step("Проверяем контактную информацию из футера")
     public List<String> getFooterContactInfo() {
         List<String> list = new ArrayList<>();
         for (WebElement item : footerContactInfo) {
@@ -215,6 +219,7 @@ public class HomePage{
      * Скроллит страницу до нижней части.
      * Использует helper для выполнения JavaScript
      */
+    @Step("Скролл страницы до нижней части.")
     public void scrollToBottom() {
         jsHelper.scrollToBottom();
     }
@@ -223,6 +228,7 @@ public class HomePage{
      * Скроллит страницу до верхней части.
      * Использует helper для выполнения JavaScript
      */
+    @Step("Скролл страницы до верхней части.")
     public void scrollToTop() {
         jsHelper.scrollToTop();
     }
@@ -231,6 +237,7 @@ public class HomePage{
      * Выполняет скрипт для закрытия всплывающего окна.
      * В данном случае использует прокрутку клавишами.
      */
+    @Step("Закрываем всплывающее окно")
     public HomePage closePopUp() {
         jsHelper.scrollByKeyboard();
         Waiters.waitTimeForVisibilityOfElement(driver, closePopUpButton);
@@ -243,6 +250,7 @@ public class HomePage{
      * Использует Actions для перемещения мыши и клик по элементу.
      * @return объект страницы MembershipPage
      */
+    @Step("Открываем страницу Lifetime Membership через меню All Courses")
     public MembershipPage getMembershipPage() {
         Actions actions = new Actions(driver);
         actions.moveToElement(catalogAllCourses).perform();
