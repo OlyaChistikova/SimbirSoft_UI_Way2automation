@@ -13,11 +13,11 @@ public class BaseTest {
     private WebDriver driver;
     protected boolean useIncognito = false;
 
-    @BeforeClass
+    @BeforeClass(description = "Настройка браузера перед запуском тестов")
     public void setUp(){
         driver = createDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
@@ -25,7 +25,7 @@ public class BaseTest {
         return new ChromeDriver();
     }
 
-    @AfterClass
+    @AfterClass(description = "Закрываем браузер")
     public void tearDown(){
         if (driver != null){
             driver.quit();
