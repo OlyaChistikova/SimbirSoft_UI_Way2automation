@@ -91,7 +91,7 @@
                 <version>3.5.4</version>
                 <configuration>
                     <argLine>
-                        -Dfile.encoding=UTF-8
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>${suite.xml.file}</suiteXmlFile>
