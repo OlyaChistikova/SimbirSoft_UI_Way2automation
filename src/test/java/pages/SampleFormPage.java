@@ -2,6 +2,7 @@ package pages;
 
 import data.EndPoint;
 import helpers.Waiters;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -85,6 +86,7 @@ public class SampleFormPage {
      * Проверяет видимость формы регистрации и ожидает соответствующего URL
      * @return true, если форма отображается, иначе false
      */
+    @Step("Проверяем видимость формы регистрации")
     public boolean checkVisibilityRegistrationFields() {
         Waiters.waitTimeForVisibilityOfElement(driver, registrationFields);
         Waiters.waitTimeForCheckUrl(driver, EndPoint.REGISTRATION.getUrl());
@@ -96,6 +98,7 @@ public class SampleFormPage {
      * @param firstName Имя
      * @return текущая страница
      */
+    @Step("Устанавливаем имя пользователя")
     public SampleFormPage setFirstName(String firstName) {
         firstnameField.sendKeys(firstName);
         return this;
@@ -106,6 +109,7 @@ public class SampleFormPage {
      * @param lastName Фамилия
      * @return текущая страница
      */
+    @Step("Устанавливаем фамилию пользователя")
     public SampleFormPage setLastName(String lastName) {
         lastNameField.sendKeys(lastName);
         return this;
@@ -116,6 +120,7 @@ public class SampleFormPage {
      * @param email Электронная почта
      * @return текущая страница
      */
+    @Step("Устанавливаем электронную почту пользователя")
     public SampleFormPage setEmail(String email) {
         emailField.sendKeys(email);
         return this;
@@ -126,6 +131,7 @@ public class SampleFormPage {
      * @param password Пароль
      * @return текущая страница
      */
+    @Step("Устанавливаем пароль пользователя")
     public SampleFormPage setPassword(String password) {
         passwordField.sendKeys(password);
         return this;
@@ -136,6 +142,7 @@ public class SampleFormPage {
      * @param hobby Название хобби, которое нужно выбрать
      * @return текущий объект страницы
      */
+    @Step("Устанавливаем хобби пользователя")
     public SampleFormPage selectExpectedHobby(String hobby) {
         for (WebElement item : hobbiesList) {
             String value = item.getAttribute("value");
@@ -151,6 +158,7 @@ public class SampleFormPage {
      * @param gender Пол, который нужно выбрать
      * @return текущий объект страницы
      */
+    @Step("Устанавливаем пол пользователя")
     public SampleFormPage selectGender(String gender) {
         Select select = new Select(genderList);
         select.selectByVisibleText(gender);
@@ -161,6 +169,7 @@ public class SampleFormPage {
      * Находит самое длинное хобби из списка и возвращает его название
      * @return самое длинное хобби
      */
+    @Step("Получаем самое длинное хобби из списка")
     public String getLongestHobby() {
         String longestHobby = "";
         for (WebElement item : hobbiesList) {
@@ -178,6 +187,7 @@ public class SampleFormPage {
      * @param longestHobby Название самого длинного хобби
      * @return текущий объект страницы
      */
+    @Step("Заполняет текстовую область О себе")
     public SampleFormPage setAboutTextArea(String longestHobby) {
         aboutTextArea.sendKeys("Самое длинное слово из предложенных хобби - " + longestHobby);
         return this;
@@ -187,6 +197,7 @@ public class SampleFormPage {
      * Нажимает кнопку регистрации
      * @return текущий объект страницы
      */
+    @Step("Нажимаем кнопку регистрации")
     public SampleFormPage clickRegisterButton() {
         registerButton.click();
         return this;
@@ -196,6 +207,7 @@ public class SampleFormPage {
      * Проверяет отображение сообщения об успешной регистрации
      * @return true, если сообщение видно
      */
+    @Step("Проверяем отображение сообщения об успешной регистрации")
     public boolean checkVisibilitySuccessMessage() {
         Waiters.waitTimeForVisibilityOfElement(driver, message);
         return message.isDisplayed();
@@ -205,6 +217,7 @@ public class SampleFormPage {
      * Получает текст сообщения об успехе
      * @return текст сообщения
      */
+    @Step("Получаем текст сообщения об успешной регистрации")
     public String getMessage() {
         return message.getText();
     }

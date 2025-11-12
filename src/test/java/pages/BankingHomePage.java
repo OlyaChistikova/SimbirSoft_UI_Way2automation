@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,12 +38,6 @@ public class BankingHomePage {
     public BankingHomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-    }
-
-    /**
-     * Открытие страницы по URL
-     */
-    public void openPage() {
         driver.get(URL);
     }
 
@@ -51,6 +46,7 @@ public class BankingHomePage {
      *
      * @return объект SampleFormPage
      */
+    @Step("Открываем страницу Sample Form")
     public SampleFormPage openSampleForm() {
         buttonSampleForm.click();
         return new SampleFormPage(driver);
@@ -61,6 +57,7 @@ public class BankingHomePage {
      *
      * @return объект BankManagerLoginPage
      */
+    @Step("Открываем страницу входа для менеджера банка")
     public BankManagerLoginPage openBankManagerLogin() {
         buttonBankManagerLogin.click();
         return new BankManagerLoginPage(driver);

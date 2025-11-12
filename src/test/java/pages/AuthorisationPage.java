@@ -1,6 +1,7 @@
 package pages;
 
 import helpers.Waiters;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,13 +35,13 @@ public class AuthorisationPage{
      * Локатор кнопки входа (Login)
      */
     @FindBy(xpath = "//button[@class='btn btn-danger']")
-    private WebElement loginButton;
+    public WebElement loginButton;
 
     /**
      * Локатор сообщения об ошибке авторизации
      */
     @FindBy(xpath = "//div[@ng-if='Auth.error']")
-    public WebElement errorMessage;
+    private WebElement errorMessage;
 
     /**
      * Конструктор страницы авторизации
@@ -50,13 +51,7 @@ public class AuthorisationPage{
     public AuthorisationPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-    }
-
-    /**
-     * Открытие страницы по URL
-     */
-    public void openPage() {
-        driver.get(URL);
+        this.driver.get(URL);
     }
 
     /**
@@ -64,6 +59,7 @@ public class AuthorisationPage{
      *
      * @return true, если поле отображается
      */
+    @Step("Проверка что поле userName отображается")
     public boolean checkDisplayUsername() {
         Waiters.waitTimeForVisibilityOfElement(driver, usernameField);
         return usernameField.isDisplayed();
@@ -74,6 +70,7 @@ public class AuthorisationPage{
      *
      * @return true, если поле отображается
      */
+    @Step("Проверка что поле password отображается")
     public boolean checkDisplayPassword() {
         Waiters.waitTimeForVisibilityOfElement(driver, passwordField);
         return passwordField.isDisplayed();
@@ -84,18 +81,19 @@ public class AuthorisationPage{
      *
      * @return true, если поле отображается
      */
+    @Step("Проверка что поле userName Description отображается")
     public boolean checkDisplayUsernameDescription() {
         Waiters.waitTimeForVisibilityOfElement(driver, usernameDescriptionField);
         return usernameDescriptionField.isDisplayed();
     }
 
     /**
-     * Очистка полей ввода и проверка, что кнопка входа становится неактивной (disabled)
+     * Проверка, что кнопка входа неактивна (disabled)
      *
-     * @return true, если кнопка disabled после очистки полей
+     * @return true, если кнопка disabled
      */
-    public boolean clearFieldsAndCheckDisabledLoginButton() {
-        clearInputFields();
+    @Step("Проверяем, что кнопка входа неактивна")
+    public boolean checkDisabledLoginButton() {
         Waiters.waitTimeForVisibilityOfElement(driver, loginButton);
         String disabledAttribute = loginButton.getAttribute("disabled");
         return disabledAttribute != null && disabledAttribute.equals("true");
@@ -109,6 +107,7 @@ public class AuthorisationPage{
      * @param description описание пользователя
      * @return текущий объект страницы для цепочки вызовов
      */
+    @Step("Задаем значения для авторизации")
     public AuthorisationPage setAuthorisationFields(String username, String password, String description) {
         usernameField.sendKeys(username);
         passwordField.sendKeys(password);
@@ -121,6 +120,7 @@ public class AuthorisationPage{
      *
      * @return объект страницы SuccessAuthorisationPage
      */
+    @Step("Нажимаем кнопку входа и переходим на страницу успешной авторизации")
     public SuccessAuthorisationPage successClickButtonLogin() {
         loginButton.click();
         return new SuccessAuthorisationPage(driver);
@@ -129,6 +129,7 @@ public class AuthorisationPage{
     /**
      * Просто клик по кнопке входа без перехода
      */
+    @Step("Нажимаем кнопку входа без перехода на страницу авторизации")
     public void clickButtonLogin() {
         loginButton.click();
     }
@@ -138,6 +139,7 @@ public class AuthorisationPage{
      *
      * @return текст сообщения
      */
+    @Step("Получаем текст сообщения об ошибке авторизации")
     public String getErrorMessage() {
         Waiters.waitTimeForVisibilityOfElement(driver, errorMessage);
         return errorMessage.getText();
@@ -146,9 +148,11 @@ public class AuthorisationPage{
     /**
      * Очистка всех полей ввода
      */
-    public void clearInputFields() {
+    @Step("Очищаем поля ввода")
+    public AuthorisationPage clearInputFields() {
         usernameField.clear();
         passwordField.clear();
         usernameDescriptionField.clear();
+        return this;
     }
 }

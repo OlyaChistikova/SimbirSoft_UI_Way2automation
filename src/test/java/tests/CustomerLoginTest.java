@@ -1,6 +1,7 @@
 package tests;
 
 import data.InputData;
+import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -14,34 +15,37 @@ public class CustomerLoginTest extends BaseTest {
     private CustomerLoginPage customerLoginPage;
     private BankManagerLoginPage bankManagerLoginPage;
 
-    @BeforeClass
+    @BeforeClass(description = "Создаем нового клиента для тестов")
     public void createCustomer(){
         driver = getDriver();
         bankingHomePage = new BankingHomePage(driver);
-        bankingHomePage.openPage();
 
         // Создаем нового клиента через менеджера банка
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin()
                 .addCustomer();
-        bankingHomePage.openPage();
 
         // Создаем счет для клиента через менеджера банка
+        bankingHomePage = new BankingHomePage(driver);
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin()
                 .openAccount();
-        bankingHomePage.openPage();
 
         // Открываем страницу входа клиента и выбираем созданного клиента
+        bankingHomePage = new BankingHomePage(driver);
         customerLoginPage = bankingHomePage.openCustomerLogin()
                 .openCustomer(InputData.firstNameCustomer, InputData.lastNameCustomer);
     }
 
-    @AfterClass
+    @AfterClass(description = "Удаляем созданного для тестов клиента")
     public void deleteCustomer(){
-        bankingHomePage.openPage();
+        bankingHomePage = new BankingHomePage(driver);
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin().deleteCustomer();
     }
 
     @Test(description = "Открытие страницы клиента и вход под выбранным пользователем")
+    @Epic("Авторизация клиента")
+    @Feature("Вход в аккаунт")
+    @Story("Успешный вход под созданным клиентом")
+    @Severity(SeverityLevel.CRITICAL)
     public void openCustomerTest(){
         customerLoginPage.logoutUser();
         Assert.assertTrue(customerLoginPage.checkVisibilityUserSelect());
@@ -51,6 +55,10 @@ public class CustomerLoginTest extends BaseTest {
     }
 
     @Test(description = "Успешное пополнение счета")
+    @Epic("Финансовые операции")
+    @Feature("Пополнение счета")
+    @Story("Успешное пополнение")
+    @Severity(SeverityLevel.CRITICAL)
     public void successfulRefillAccountTest() {
         customerLoginPage.clickDepositCatalog();
         customerLoginPage.setAmountField(InputData.amountDeposit).clickButtonDeposit();
@@ -61,6 +69,10 @@ public class CustomerLoginTest extends BaseTest {
     }
 
     @Test(description = "Некорректное пополнение счета с нулевой суммой")
+    @Epic("Финансовые операции")
+    @Feature("Пополнение счета")
+    @Story("Попытка пополнения нулевой суммой")
+    @Severity(SeverityLevel.MINOR)
     public void unSuccessfulRefillAccountTest() {
         // Пополнение для установки баланса и проверки транзакций
         customerLoginPage.setRefillAccount(InputData.amountDeposit);
@@ -74,6 +86,10 @@ public class CustomerLoginTest extends BaseTest {
     }
 
     @Test(description = "Успешное снятие денег со счета")
+    @Epic("Финансовые операции")
+    @Feature("Снятие средств")
+    @Story("Успешное снятие")
+    @Severity(SeverityLevel.CRITICAL)
     public void successfulWithdrawalMoneyTest() {
         // Пополняем счет для обеспечения достаточного баланса
         customerLoginPage.setRefillAccount(InputData.amountDeposit);
@@ -88,6 +104,10 @@ public class CustomerLoginTest extends BaseTest {
     }
 
     @Test(description = "Попытка снятия суммы, превышающей баланс")
+    @Epic("Финансовые операции")
+    @Feature("Снятие средств")
+    @Story("Попытка снятия суммы больше баланса")
+    @Severity(SeverityLevel.CRITICAL)
     public void unSuccessfulWithdrawalMoneyTest() {
         // Пополняем счет для теста
         customerLoginPage.setRefillAccount(InputData.amountDeposit);
@@ -101,6 +121,10 @@ public class CustomerLoginTest extends BaseTest {
     }
 
     @Test(description = "Проверка правильности подсчета баланса по транзакциям")
+    @Epic("Финансовые операции")
+    @Feature("Подсчет баланса")
+    @Story("Проверка корректности отображения баланса")
+    @Severity(SeverityLevel.NORMAL)
     public void checkBalanceTest() {
         // Пополняем счет для обеспечения достаточного баланса
         customerLoginPage.setRefillAccount(InputData.amountDeposit);
@@ -116,6 +140,10 @@ public class CustomerLoginTest extends BaseTest {
     }
 
     @Test(description = "Снятие всех оставшихся средств, баланс становится 0")
+    @Epic("Финансовые операции")
+    @Feature("Обнуление баланса")
+    @Story("Снятие оставшихся средств")
+    @Severity(SeverityLevel.CRITICAL)
     public void withdrawalRemainingMoneyTest() {
         // Пополняем счет для теста
         customerLoginPage.setRefillAccount(InputData.amountDeposit);
@@ -128,6 +156,10 @@ public class CustomerLoginTest extends BaseTest {
     }
 
     @Test(description = "Очистка истории транзакций и проверка, что таблица пуста")
+    @Epic("Финансовые операции")
+    @Feature("История транзакций")
+    @Story("Очистка и проверка пустой таблицы")
+    @Severity(SeverityLevel.MINOR)
     public void clearTransactionHistoryTest() {
         // Пополняем счет для теста
         customerLoginPage.setRefillAccount(InputData.amountDeposit);

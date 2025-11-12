@@ -2,27 +2,34 @@ package tests;
 
 import data.InputData;
 import data.OutputData;
+import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BankManagerLoginPage;
 import pages.BankingHomePage;
 import pages.CustAllert;
 
+import java.time.Duration;
+
 public class BankManagerLoginTest extends BaseTest{
     private WebDriver driver;
     private BankingHomePage bankingHomePage;
     private BankManagerLoginPage bankManagerLoginPage;
 
-    @BeforeMethod
+    @BeforeMethod(description = "Открываем страницу Banking App")
     public void setUrl() {
         driver = getDriver();
         bankingHomePage = new BankingHomePage(driver);
-        bankingHomePage.openPage();
     }
 
     @Test(description = "Проверка добавления покупателя")
+    @Epic("Управление клиентами банка")
+    @Feature("Добавление клиента")
+    @Story("Добавление нового покупателя")
+    @Severity(SeverityLevel.CRITICAL)
     public void addCustomerTest() {
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin();
         Assert.assertTrue(bankManagerLoginPage.openAddCustomerCatalog());
@@ -31,18 +38,20 @@ public class BankManagerLoginTest extends BaseTest{
         Assert.assertTrue(addCustAllert.getAlertText().contains(OutputData.addCutAllertMessage), "Alert text does not match expected value");
         addCustAllert.accept();
 
-        // Удаляем нового клиента через менеджера банка
-        bankingHomePage.openPage();
+        bankingHomePage = new BankingHomePage(driver);
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin().deleteCustomer();
     }
 
     @Test(description = "Проверка открытия аккаунта")
+    @Epic("Управление аккаунтами банка")
+    @Feature("Создание аккаунта")
+    @Story("Открытие нового счета для клиента")
+    @Severity(SeverityLevel.CRITICAL)
     public void openCustomerTest() {
-        // Создаем нового клиента через менеджера банка
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin()
                 .addCustomer();
-        bankingHomePage.openPage();
 
+        bankingHomePage = new BankingHomePage(driver);
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin();
         Assert.assertTrue(bankManagerLoginPage.openCatalogOpenAccount());
         CustAllert openCustAllert = bankManagerLoginPage.setOpenAccountFields(InputData.firstNameCustomer + " " + InputData.lastNameCustomer, InputData.currencyCustomer)
@@ -50,18 +59,20 @@ public class BankManagerLoginTest extends BaseTest{
         Assert.assertTrue(openCustAllert.getAlertText().contains(OutputData.openCustAllertMessage), "Alert text does not match expected value");
         openCustAllert.accept();
 
-        // Удаляем нового клиента через менеджера банка
-        bankingHomePage.openPage();
+        bankingHomePage = new BankingHomePage(driver);
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin().deleteCustomer();
     }
 
-    @Test(description = "Проверка удаления покупателя", priority = 3)
+    @Test(description = "Проверка удаления покупателя")
+    @Epic("Управление клиентами банка")
+    @Feature("Удаление клиента")
+    @Story("Удаление существующего покупателя")
+    @Severity(SeverityLevel.NORMAL)
     public void removeCustomerTest() {
-        // Создаем нового клиента через менеджера банка
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin()
                 .addCustomer();
-        bankingHomePage.openPage();
 
+        bankingHomePage = new BankingHomePage(driver);
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin();
         Assert.assertTrue(bankManagerLoginPage.openCustomersCatalog());
         bankManagerLoginPage.setSearchCustomerField(InputData.firstNameCustomer);

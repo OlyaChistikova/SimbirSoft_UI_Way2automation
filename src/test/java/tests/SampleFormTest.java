@@ -2,6 +2,7 @@ package tests;
 
 import data.InputData;
 import data.OutputData;
+import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -14,14 +15,17 @@ public class SampleFormTest extends BaseTest{
     private BankingHomePage bankingHomePage;
     private SampleFormPage sampleFormPage;
 
-    @BeforeClass
+    @BeforeClass(description = "Открываем страницу Banking App")
     public void setUrl() {
         driver = getDriver();
         bankingHomePage = new BankingHomePage(driver);
-        bankingHomePage.openPage();
     }
 
     @Test(description = "Проверка регистрации")
+    @Epic("Регистрация пользователя")
+    @Feature("Форма регистрации")
+    @Story("Успешная регистрация нового пользователя")
+    @Severity(SeverityLevel.CRITICAL)
     public void checkRegistrationCustomerTest() {
         sampleFormPage = bankingHomePage.openSampleForm();
         Assert.assertTrue(sampleFormPage.checkVisibilityRegistrationFields());

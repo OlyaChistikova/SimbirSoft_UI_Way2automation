@@ -3,6 +3,7 @@ package pages;
 import data.EndPoint;
 import data.InputData;
 import helpers.Waiters;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -111,6 +112,7 @@ public class BankManagerLoginPage {
      *
      * @return true, если окно отображается
      */
+    @Step("Открываем окно добавления клиента")
     public boolean openAddCustomerCatalog() {
         checkVisibilityElement(addCustCatalog, EndPoint.BANK_MANAGER.getUrl());
         addCustCatalog.click();
@@ -125,6 +127,7 @@ public class BankManagerLoginPage {
      * @param postCode Почтовый индекс
      * @return текущий объект страницы (для цепочки вызовов)
      */
+    @Step("Заполняем поля для добавления нового клиента")
     public BankManagerLoginPage setAddCustomerFields(String firstName, String lastName, String postCode) {
         firstNameField.sendKeys(firstName);
         lastNameField.sendKeys(lastName);
@@ -137,6 +140,7 @@ public class BankManagerLoginPage {
      *
      * @return объект CustAllert
      */
+    @Step("Нажимаем кнопку добавления клиента и получаем окно подтверждения операции")
     public CustAllert clickButtonAddCust() {
         addCustButton.click();
         return new CustAllert(driver);
@@ -147,6 +151,7 @@ public class BankManagerLoginPage {
      *
      * @return true, если окно отображается
      */
+    @Step("Открываем окно открытия счета клиента")
     public boolean openCatalogOpenAccount() {
         checkVisibilityElement(openAccountCatalog, EndPoint.BANK_MANAGER.getUrl());
         openAccountCatalog.click();
@@ -160,6 +165,7 @@ public class BankManagerLoginPage {
      * @param currency Валюта счета
      * @return текущий объект страницы
      */
+    @Step("Заполняем поля для открытия счета")
     public BankManagerLoginPage setOpenAccountFields(String customerName, String currency) {
         selectCustomerName(customerName);
         selectCurrency(currency);
@@ -171,6 +177,7 @@ public class BankManagerLoginPage {
      *
      * @return объект CustAllert
      */
+    @Step("Нажимаем кнопку обработки открытия счета и получаем окно подтверждения операции")
     public CustAllert clickProcessButton() {
         processButton.click();
         return new CustAllert(driver);
@@ -181,6 +188,7 @@ public class BankManagerLoginPage {
      *
      * @return true, если окно отображается
      */
+    @Step("Открываем окно отображения клиентов")
     public boolean openCustomersCatalog() {
         checkVisibilityElement(customersCatalog, EndPoint.BANK_MANAGER.getUrl());
         customersCatalog.click();
@@ -225,6 +233,7 @@ public class BankManagerLoginPage {
      *
      * @param firstName Имя клиента
      */
+    @Step("Находим созданного клиента через поиск")
     public void setSearchCustomerField(String firstName) {
         searchCustomerField.sendKeys(firstName);
     }
@@ -232,15 +241,17 @@ public class BankManagerLoginPage {
     /**
      * Очищает поле поиска клиента
      */
+    @Step("Очищаем поле поиска клиента")
     public void clearSearchCustomerField() {
         searchCustomerField.clear();
     }
 
     /**
-     * Получает имя первого клиента из таблицы
+     * Получает имя клиента из таблицы
      *
      * @return Имя клиента или null, если таблица пустая
      */
+    @Step("Получаем созданного клиента из таблицы")
     public String getCustomerName() {
         for (WebElement row : rowsCustomers) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -254,6 +265,7 @@ public class BankManagerLoginPage {
      *
      * @return список имен
      */
+    @Step("Получаем список всех имен клиентов из таблицы для проверки удаления клиента")
     public List<String> getAllCustomerNames() {
         List<String> names = new ArrayList<>();
         for (WebElement row : rowsCustomers) {
@@ -270,6 +282,7 @@ public class BankManagerLoginPage {
      *
      * @return текущий объект страницы
      */
+    @Step("Нажимаем кнопку удаления клиента")
     public BankManagerLoginPage clickButtonDeleteCustomer() {
         for (WebElement row : rowsCustomers) {
             WebElement deleteButton = row.findElement(By.tagName("button"));
@@ -309,6 +322,7 @@ public class BankManagerLoginPage {
      *
      * @return текущий объект страницы
      */
+    @Step("Удаляем созданного клиента")
     public BankManagerLoginPage deleteCustomer() {
         openCustomersCatalog();
         setSearchCustomerField(InputData.firstNameCustomer);

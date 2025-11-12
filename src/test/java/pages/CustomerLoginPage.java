@@ -2,6 +2,7 @@ package pages;
 
 import data.EndPoint;
 import helpers.Waiters;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -135,6 +136,7 @@ public class CustomerLoginPage {
      *
      * @return true, если контейнер видим
      */
+    @Step("Проверяем отображение поля выбора пользователя")
     public boolean checkVisibilityUserSelect() {
         Waiters.waitTimeForVisibilityOfElement(driver, userSelect);
         Waiters.waitTimeForCheckUrl(driver, CUSTOMER_LOGIN.getUrl());
@@ -146,6 +148,7 @@ public class CustomerLoginPage {
      *
      * @param userCustomer Имя пользователя
      */
+    @Step("Выбираем пользователя")
     public void selectUser(String userCustomer) {
         Select select = new Select(userSelect);
         select.selectByVisibleText(userCustomer);
@@ -156,6 +159,7 @@ public class CustomerLoginPage {
      *
      * @return true, если кнопка отображается
      */
+    @Step("Проверяем отображение кнопки входа")
     public boolean checkVisibilityLoginButton() {
         Waiters.waitTimeForVisibilityOfElement(driver, loginButton);
         Waiters.waitTimeForClickableElement(driver, loginButton);
@@ -167,6 +171,7 @@ public class CustomerLoginPage {
      *
      * @return true, если приветственное сообщение отображается
      */
+    @Step("Нажимаем кнопку логирования")
     public boolean clickLoginButton() {
         checkVisibilityLoginButton();
         loginButton.click();
@@ -191,6 +196,7 @@ public class CustomerLoginPage {
      *
      * @return текст сообщения
      */
+    @Step("Проверяем приветственное сообщение")
     public String getWelcomeMessage() {
         return welcomeMessage.getText();
     }
@@ -198,6 +204,7 @@ public class CustomerLoginPage {
     /**
      * Открывает вкладку депозита
      */
+    @Step("Открываем вкладку пополнения счета")
     public void clickDepositCatalog() {
         checkVisibilityOfElement(depositCatalog, EndPoint.ACCOUNT.getUrl());
         depositCatalog.click();
@@ -206,6 +213,7 @@ public class CustomerLoginPage {
     /**
      * Открывает вкладку снятия средств
      */
+    @Step("Открываем вкладку снятия средств")
     public void clickWithdrawlCatalog() {
         checkVisibilityOfElement(withdrawlCatalog, EndPoint.ACCOUNT.getUrl());
         withdrawlCatalog.click();
@@ -217,6 +225,7 @@ public class CustomerLoginPage {
      * @param amountDeposit сумма
      * @return текущий объект страницы
      */
+    @Step("Устанавливаем сумму для операции")
     public CustomerLoginPage setAmountField(String amountDeposit) {
         amountField.sendKeys(amountDeposit);
         return this;
@@ -225,6 +234,7 @@ public class CustomerLoginPage {
     /**
      * Нажимает кнопку депозита
      */
+    @Step("Нажимаем кнопку пополнения счета")
     public void clickButtonDeposit() {
         depositButton.click();
     }
@@ -235,6 +245,7 @@ public class CustomerLoginPage {
      * @param message ожидаемое сообщение
      * @return true, если сообщение совпадает
      */
+    @Step("Проверяем успешное сообщения")
     public boolean checkMessage(String message) {
         Waiters.waitTimeForVisibilityOfElement(driver, successfulMessage);
         return successfulMessage.getText().equals(message);
@@ -246,6 +257,7 @@ public class CustomerLoginPage {
      * @param message сообщение для сравнения
      * @return true, если сообщение исчезло
      */
+    @Step("Проверяем исчезновение сообщения")
     public boolean checkInvisibilityMessage(String message) {
         Waiters.waitTimeForElementToBeInvisible(driver, successfulMessage);
         return !successfulMessage.getText().equals(message);
@@ -256,6 +268,7 @@ public class CustomerLoginPage {
      *
      * @return true, если отображается сумма транзакции
      */
+    @Step("Открываем вкладку транзакций")
     public boolean clickTransactionsCatalog() {
         Waiters.setPause();
         transactionsCatalog.click();
@@ -281,6 +294,7 @@ public class CustomerLoginPage {
      *
      * @return сумма или "-1", если не найдено
      */
+    @Step("Получаем сумму последней транзакции")
     public String getTransactionAmount() {
         try {
             return transactionAmount.getText();
@@ -294,6 +308,7 @@ public class CustomerLoginPage {
      *
      * @return баланс как строка
      */
+    @Step("Получаем текущий баланс")
     public String getBalance() {
         return balanceField.getText();
     }
@@ -301,6 +316,7 @@ public class CustomerLoginPage {
     /**
      * Нажимает кнопку снятия средств
      */
+    @Step("Нажимаем кнопку снятия средств")
     public void clickWithdrawlButton() {
         withdrawlButton.click();
     }
@@ -308,6 +324,7 @@ public class CustomerLoginPage {
     /**
      * Возврат на предыдущую страницу
      */
+    @Step("Возвращаемся на предыдущую страницу")
     public void clickBackButton() {
         buttonBack.click();
     }
@@ -317,6 +334,7 @@ public class CustomerLoginPage {
      *
      * @return сумма баланса как строка
      */
+    @Step("Расчитываем общий баланс по транзакциям")
     public String getTotalAccountBalance() {
         int totalBalance = 0;
 
@@ -342,6 +360,7 @@ public class CustomerLoginPage {
      *
      * @return число транзакций
      */
+    @Step("Получаем количество транзакций")
     public int getCountTransaction() {
         return rowsTransactions.size();
     }
@@ -351,6 +370,7 @@ public class CustomerLoginPage {
      *
      * @return текущий объект страницы
      */
+    @Step("Сбрасываем состояние транзакций")
     public CustomerLoginPage clickButtonReset() {
         buttonReset.click();
         return this;
@@ -361,6 +381,7 @@ public class CustomerLoginPage {
      *
      * @return true, если таблица пуста
      */
+    @Step("Проверяем, пуста ли таблица транзакций")
     public boolean isTableBodyEmpty() {
         List<WebElement> rows = tbody.findElements(By.tagName("tr"));
         return rows.isEmpty();
@@ -371,6 +392,7 @@ public class CustomerLoginPage {
      *
      * @return случайное число
      */
+    @Step("Генерируем число меньшее чем баланс")
     public int getRandomIntToBalance() {
         String balanceText = this.getBalance();
         int maxBalance = Integer.parseInt(balanceText);
@@ -381,6 +403,7 @@ public class CustomerLoginPage {
     /**
      * Выполняет выход пользователя
      */
+    @Step("Выбираем разлогирование пользователя")
     public void logoutUser() {
         logoutButton.click();
     }
@@ -392,6 +415,7 @@ public class CustomerLoginPage {
      * @param lastName фамилия
      * @return текущий объект страницы
      */
+    @Step("Выбираем пользователя")
     public CustomerLoginPage openCustomer(String firstName, String lastName) {
         this.selectUser(firstName + " " + lastName);
         this.clickLoginButton();
@@ -403,6 +427,7 @@ public class CustomerLoginPage {
      *
      * @param amount сумма для пополнения
      */
+    @Step("Выполняем пополнение счета")
     public void setRefillAccount(String amount) {
         this.clickDepositCatalog();
         this.setAmountField(amount).clickButtonDeposit();
@@ -415,6 +440,7 @@ public class CustomerLoginPage {
      *
      * @param amount сумма для снятия
      */
+    @Step("Выполняем снятие денег")
     public void setWithdrawalMoney(String amount) {
         this.clickWithdrawlCatalog();
         this.setAmountField(amount).clickWithdrawlButton();
