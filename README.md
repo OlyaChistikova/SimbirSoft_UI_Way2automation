@@ -14,7 +14,8 @@
 
 ## Запуск тестов 
 
-- **tests_default** - mvn clean test -P testng.xml  
+- **Way2AutomationUI_Tests** - mvn clean test -P tests_default
+- **Way2AutomationUI_Authorization_DataProvider** - mvn clean test -P tests_authorisation
 
 ## Формирование отчета
 
