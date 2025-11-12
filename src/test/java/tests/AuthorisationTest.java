@@ -43,20 +43,28 @@ public class AuthorisationTest extends BaseTest{
         Assert.assertTrue(authorisationPage.checkDisabledLoginButton());
     }
 
-    @Test(description = "Проверка успешной авторизации")
+    @DataProvider(name = "validDataAuth")
+    public Object[][] validDataAuth(){
+        return new Object[][]{
+                {"angular", "password", "abc"},
+                {"angular", "password", "description"}
+        };
+    }
+
+    @Test(description = "Проверка успешной авторизации", dataProvider = "validDataAuth")
     @Epic("Авторизация пользователя")
     @Feature("Вход в систему")
     @Story("Успешный вход с валидными данными")
     @Severity(SeverityLevel.CRITICAL)
-    public void  checkSuccessfulAuthorizationTest(){
-        authorisationPage.setAuthorisationFields(InputData.validUsernameAuthorisation, InputData.validPasswordAuthorisation, InputData.validUsernameAuthorisation);
+    public void checkSuccessfulAuthorizationTest(String username, String password, String description){
+        authorisationPage.setAuthorisationFields(username, password, description);
         SuccessAuthorisationPage successAuthorisationPage = authorisationPage.successClickButtonLogin();
         Assert.assertEquals(successAuthorisationPage.getAuthResponse(), OutputData.successAuthTitle);
         successAuthorisationPage.clickLogout();
     }
 
     @DataProvider(name = "invalidDataAuth")
-    public Object[][] dtmethod(){
+    public Object[][] invalidDataAuth(){
         return new Object[][]{
                 {"abc", "password", "abc"},            // username невалидный
                 {"angular", "psw", "abc"}              // password невалидный
@@ -88,39 +96,27 @@ public class AuthorisationTest extends BaseTest{
         Assert.assertTrue(authorisationPageAfter.checkDisplayUsernameDescription());
     }
 
-    @DataProvider(name = "loginUsersData")
-    public Object[][] loginUsersData() {
+    @DataProvider(name = "emptyDataAuth")
+    public Object[][] emptyDataAuth() {
         return new Object[][]{
-                {"angular", "password", "description", true},
-                {"user1", "password1", "description1", false},
-                {"", "password", "description", false},
-                {"user", "", "description", false},
-                {"user", "password", "", false},
-                {"", "", "description", false},
-                {"user", "", "", false},
-                {"", "password", "", false},
-                {"", "", "", false},
+                {"", "password", "description"},
+                {"user", "", "description"},
+                {"user", "password", ""},
+                {"", "", "description"},
+                {"user", "", ""},
+                {"", "password", ""},
+                {"", "", ""},
         };
     }
 
-    @Test(description = "Тест авторизации различных данных ввода", dataProvider = "loginUsersData")
+    @Test(description = "Тест авторизации с пустыми данными ввода", dataProvider = "emptyDataAuth")
     @Epic("Авторизация пользователя")
     @Feature("Обработка ошибок")
-    @Story("Авторизация с различными данными ввода")
+    @Story("Авторизация с пустыми данными ввода")
     @Severity(SeverityLevel.CRITICAL)
-    public void paramAuthorizationTest(String username, String password, String description, boolean isSuccessful){
+    public void checkUnSuccessAuthorizationEmptyDataTest(String username, String password, String description){
         authorisationPage.setAuthorisationFields(username, password, description);
-        if (isSuccessful) {
-            SuccessAuthorisationPage successAuthorisationPage = authorisationPage.successClickButtonLogin();
-            successAuthorisationPage.clickLogout();
-        } else if (!username.isEmpty() && !password.isEmpty() && !description.isEmpty()) {
-            authorisationPage.clickButtonLogin();
-            Assert.assertEquals(authorisationPage.getErrorMessage(), OutputData.unsuccessAuthMessage);
-            Assert.assertTrue(authorisationPage.clearInputFields().checkDisabledLoginButton());
-        }
-        else {
-            Assert.assertTrue(authorisationPage.checkDisabledLoginButton());
-            authorisationPage.clearInputFields();
-        }
+        Assert.assertTrue(authorisationPage.checkDisabledLoginButton());
+        authorisationPage.clearInputFields();
     }
 }
