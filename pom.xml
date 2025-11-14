@@ -16,6 +16,23 @@
       <aspectj.version>1.9.25</aspectj.version>
   </properties>
 
+    <profiles>
+        <profile>
+            <id>tests_default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <suite.xml.file>src/test/resources/testng.xml</suite.xml.file>
+            </properties>
+        </profile>
+        <profile>
+            <id>tests_authorisation</id>
+            <properties>
+                <suite.xml.file>src/test/resources/authorisationSuite.xml</suite.xml.file>
+            </properties>
+        </profile>
+    </profiles>
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -77,9 +94,7 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                     <suiteXmlFiles>
-                        <suiteXmlFile>
-                            src\test\resources\testng.xml
-                        </suiteXmlFile>
+                        <suiteXmlFile>${suite.xml.file}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
                 <dependencies>

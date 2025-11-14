@@ -122,6 +122,7 @@ public class AuthorisationPage{
      */
     @Step("Нажимаем кнопку входа и переходим на страницу успешной авторизации")
     public SuccessAuthorisationPage successClickButtonLogin() {
+        Waiters.waitTimeForClickableElement(driver, loginButton);
         loginButton.click();
         return new SuccessAuthorisationPage(driver);
     }
