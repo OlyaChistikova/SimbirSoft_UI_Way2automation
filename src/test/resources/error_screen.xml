@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Way2AutomationUI_Error_Screen" thread-count="3" verbose="1">
+    <test name="UI Tests">
+        <classes>
+            <class name="tests.AuthorisationTest">
+                <methods>
+                    <include name="checkIncorrectErrorMessageTest"/>
+                </methods>
+            </class>
+            <class name="tests.BankManagerLoginTest">
+                <methods>
+                    <include name="deleteNonExistentCustomerTest"/>
+                </methods>
+            </class>
+            <class name="tests.HomePageTest">
+                <methods>
+                    <include name="checkTitleUrlMembershipPage"/>
+                </methods>
+            </class>
+            <class name="tests.SampleFormTest">
+                <methods>
+                    <include name="checkUnSuccessRegistrationCustomerTest"/>
+                </methods>
+            </class><class name="tests.CustomerLoginTest">
+                <methods>
+                    <include name="clearEmptyTransactionHistoryTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

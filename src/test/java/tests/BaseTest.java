@@ -1,10 +1,14 @@
 package tests;
 
+import helpers.JavaScriptExecutorHelper;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 
@@ -12,6 +16,7 @@ import java.time.Duration;
 public class BaseTest {
     private WebDriver driver;
     protected boolean useIncognito = false;
+    protected SoftAssert softAssert;
 
     @BeforeClass(description = "Настройка браузера перед запуском тестов")
     public void setUp(){
@@ -19,10 +24,18 @@ public class BaseTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        softAssert = new SoftAssert();
     }
 
     protected WebDriver createDriver() {
         return new ChromeDriver();
+    }
+
+    @AfterMethod(description = "Делаем скриншот в случае провала теста")
+    public void takeScreenshotOnFailure(ITestResult result) {
+        if (result.getStatus() == ITestResult.FAILURE) {
+            JavaScriptExecutorHelper.takeScreenshot(driver);
+        }
     }
 
     @AfterClass(description = "Закрываем браузер")

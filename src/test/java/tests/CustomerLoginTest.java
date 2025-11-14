@@ -174,4 +174,23 @@ public class CustomerLoginTest extends BaseTest {
         customerLoginPage.clickBackButton();
         Assert.assertEquals(customerLoginPage.getBalance(), "0");
     }
+
+    @Test(description = "Очистка пустой истории транзакций и проверка, что таблица пуста")
+    @Epic("Финансовые операции")
+    @Feature("История транзакций")
+    @Story("Очистка пустой таблицы")
+    @Severity(SeverityLevel.MINOR)
+    public void clearEmptyTransactionHistoryTest() {
+        // Пополняем счет для теста
+        customerLoginPage.setRefillAccount("0");
+
+        customerLoginPage.setWithdrawalMoney("0");
+
+        softAssert.assertTrue(customerLoginPage.clickTransactionsCatalog());
+        softAssert.assertTrue(customerLoginPage.getCountTransaction() > 0);
+        softAssert.assertAll();
+        Assert.assertTrue(customerLoginPage.clickButtonReset().isTableBodyEmpty());
+        customerLoginPage.clickBackButton();
+        Assert.assertEquals(customerLoginPage.getBalance(), "0");
+    }
 }

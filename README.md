@@ -16,6 +16,7 @@
 
 - **Way2AutomationUI_Tests** - mvn clean test -P tests_default
 - **Way2AutomationUI_Authorization_DataProvider** - mvn clean test -P tests_authorisation
+- **Way2AutomationUI_Error_Screen** - mvn clean test -P tests_error_screen
 
 ## Формирование отчета
 

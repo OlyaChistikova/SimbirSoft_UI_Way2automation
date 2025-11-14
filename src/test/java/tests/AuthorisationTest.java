@@ -82,6 +82,19 @@ public class AuthorisationTest extends BaseTest{
         Assert.assertTrue(authorisationPage.clearInputFields().checkDisabledLoginButton());
     }
 
+    @Test(description = "Проверка неправильного сообщения об ошибке для невалидных данных", dataProvider = "invalidDataAuth")
+    @Epic("Авторизация пользователя")
+    @Feature("Обработка ошибок")
+    @Story("Проверка сообщения об ошибке при невалидных данных")
+    @Severity(SeverityLevel.MINOR)
+    public void checkIncorrectErrorMessageTest(String username, String password, String description){
+        Assert.assertTrue(authorisationPage.clearInputFields().checkDisabledLoginButton());
+        authorisationPage.setAuthorisationFields(username, password, description).clickButtonLogin();
+        String expectedErrorMessage = "Некорректное сообщение";
+        softAssert.assertEquals(authorisationPage.getErrorMessage(), expectedErrorMessage);
+        softAssert.assertAll();
+    }
+
     @Test(description = "Проверка успешного разлогирования")
     @Epic("Авторизация пользователя")
     @Feature("Выход из системы")

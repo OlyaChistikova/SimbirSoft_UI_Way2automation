@@ -21,6 +21,12 @@ public class HomePageTest extends BaseTest {
         homePage = new HomePage(driver);
     }
 
+    @AfterMethod(description = "Скролл вверх страницы")
+    public void scrollToTop() {
+        driver.manage().deleteAllCookies();
+        homePage.scrollToTop();
+    }
+
     @Test(description = "Проверка наличия всех основных элементов страницы")
     @Epic("Главная страница сайта")
     @Feature("Основные элементы страницы")
@@ -90,9 +96,16 @@ public class HomePageTest extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), EndPoint.MEMBERSHIP.getUrl());
     }
 
-    @AfterMethod(description = "Скролл вверх страницы")
-    public void scrollToTop() {
-        driver.manage().deleteAllCookies();
-        homePage.scrollToTop();
+    @Test(description = "Проверка ожидания неправильного заголовка страницы")
+    @Epic("Главная страница сайта")
+    @Feature("Навигация")
+    @Story("Заголовок страницы 'Membership'")
+    @Severity(SeverityLevel.MINOR)
+    public void checkTitleUrlMembershipPage() {
+        homePage.closePopUp();
+        MembershipPage membershipPage = homePage.getMembershipPage();
+        softAssert.assertEquals(membershipPage.getTitlePage(), "Membership");
+        softAssert.assertEquals(driver.getCurrentUrl(),  EndPoint.MEMBERSHIP.getUrl());
+        softAssert.assertAll();
     }
 }

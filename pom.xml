@@ -32,6 +32,12 @@
                 <suite.xml.file>src/test/resources/authorisationSuite.xml</suite.xml.file>
             </properties>
         </profile>
+        <profile>
+            <id>tests_error_screen</id>
+            <properties>
+                <suite.xml.file>src/test/resources/error_screen.xml</suite.xml.file>
+            </properties>
+        </profile>
     </profiles>
     <dependencyManagement>
         <dependencies>
@@ -71,6 +77,12 @@
           <groupId>io.qameta.allure</groupId>
           <artifactId>allure-testng</artifactId>
           <scope>test</scope>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot -->
+      <dependency>
+          <groupId>ru.yandex.qatools.ashot</groupId>
+          <artifactId>ashot</artifactId>
+          <version>1.5.4</version>
       </dependency>
   </dependencies>
     <build>
