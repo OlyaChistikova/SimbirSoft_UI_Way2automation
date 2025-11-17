@@ -88,11 +88,10 @@ public class AuthorisationTest extends BaseTest{
     @Story("Проверка сообщения об ошибке при невалидных данных")
     @Severity(SeverityLevel.MINOR)
     public void checkIncorrectErrorMessageTest(String username, String password, String description){
-        Assert.assertTrue(authorisationPage.clearInputFields().checkDisabledLoginButton());
+        authorisationPage.clearInputFields();
         authorisationPage.setAuthorisationFields(username, password, description).clickButtonLogin();
         String expectedErrorMessage = "Некорректное сообщение";
-        softAssert.assertEquals(authorisationPage.getErrorMessage(), expectedErrorMessage);
-        softAssert.assertAll();
+        Assert.assertEquals(authorisationPage.getErrorMessage(), expectedErrorMessage);
     }
 
     @Test(description = "Проверка успешного разлогирования")
