@@ -91,8 +91,7 @@ public class BankManagerLoginTest extends BaseTest{
         String nonExistentCustomer = "Аноним";
         bankManagerLoginPage.setSearchCustomerField(nonExistentCustomer);
 
-        softAssert.assertEquals(bankManagerLoginPage.getCustomerName(), nonExistentCustomer);
-        softAssert.assertAll();
+        Assert.assertEquals(bankManagerLoginPage.getCustomerName(), nonExistentCustomer);
         bankManagerLoginPage.clickButtonDeleteCustomer()
                 .clearSearchCustomerField();
         Assert.assertFalse(bankManagerLoginPage.getAllCustomerNames().contains(nonExistentCustomer));
