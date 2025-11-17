@@ -50,7 +50,6 @@ public class SampleFormTest extends BaseTest{
         sampleFormPage = bankingHomePage.openSampleForm();
         Assert.assertTrue(sampleFormPage.checkVisibilityRegistrationFields());
         sampleFormPage.clickRegisterButton();
-        softAssert.assertEquals(sampleFormPage.getMessage(), OutputData.successRegistrMessage);
-        softAssert.assertAll();
+        Assert.assertEquals(sampleFormPage.getMessage(), OutputData.successRegistrMessage);
     }
 }
