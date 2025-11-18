@@ -1,13 +1,13 @@
 package tests;
 
 import helpers.JavaScriptExecutorHelper;
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
@@ -18,7 +18,7 @@ public class BaseTest {
     protected boolean useIncognito = false;
     protected SoftAssert softAssert;
 
-    @BeforeClass(description = "Настройка браузера перед запуском тестов")
+    @BeforeMethod(description = "Настройка браузера перед запуском тестов")
     public void setUp(){
         driver = createDriver();
         driver.manage().window().maximize();
@@ -31,15 +31,16 @@ public class BaseTest {
         return new ChromeDriver();
     }
 
-    @AfterMethod(description = "Делаем скриншот в случае провала теста")
+    @Step("Делаем скриншот в случае провала теста")
     public void takeScreenshotOnFailure(ITestResult result) {
         if (result.getStatus() == ITestResult.FAILURE) {
             JavaScriptExecutorHelper.takeScreenshot(driver);
         }
     }
 
-    @AfterClass(description = "Закрываем браузер")
-    public void tearDown(){
+    @AfterMethod(description = "Закрываем браузер")
+    public void tearDown(ITestResult result){
+        takeScreenshotOnFailure(result);
         if (driver != null){
             driver.quit();
         }

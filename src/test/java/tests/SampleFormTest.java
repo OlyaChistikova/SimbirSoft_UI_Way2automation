@@ -5,7 +5,7 @@ import data.OutputData;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BankingHomePage;
 import pages.SampleFormPage;
@@ -15,7 +15,7 @@ public class SampleFormTest extends BaseTest{
     private BankingHomePage bankingHomePage;
     private SampleFormPage sampleFormPage;
 
-    @BeforeClass(description = "Открываем страницу Banking App")
+    @BeforeMethod(description = "Открываем страницу Banking App")
     public void setUrl() {
         driver = getDriver();
         bankingHomePage = new BankingHomePage(driver);

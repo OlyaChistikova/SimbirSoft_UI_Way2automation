@@ -4,9 +4,7 @@ import data.InputData;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.*;
 
 public class CustomerLoginTest extends BaseTest {
@@ -15,7 +13,7 @@ public class CustomerLoginTest extends BaseTest {
     private CustomerLoginPage customerLoginPage;
     private BankManagerLoginPage bankManagerLoginPage;
 
-    @BeforeClass(description = "Создаем нового клиента для тестов")
+    @BeforeMethod(description = "Создаем нового клиента для тестов")
     public void createCustomer(){
         driver = getDriver();
         bankingHomePage = new BankingHomePage(driver);
@@ -35,7 +33,7 @@ public class CustomerLoginTest extends BaseTest {
                 .openCustomer(InputData.firstNameCustomer, InputData.lastNameCustomer);
     }
 
-    @AfterClass(description = "Удаляем созданного для тестов клиента")
+    @AfterMethod(description = "Удаляем созданного для тестов клиента")
     public void deleteCustomer(){
         bankingHomePage = new BankingHomePage(driver);
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin().deleteCustomer();

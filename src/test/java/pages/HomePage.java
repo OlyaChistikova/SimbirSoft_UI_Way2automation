@@ -239,9 +239,13 @@ public class HomePage{
      */
     @Step("Закрываем всплывающее окно")
     public HomePage closePopUp() {
-        jsHelper.scrollByKeyboard();
-        Waiters.waitTimeForVisibilityOfElement(driver, closePopUpButton);
-        closePopUpButton.click();
+        try{
+            jsHelper.scrollByKeyboard();
+            Waiters.waitTimeForVisibilityOfElement(driver, closePopUpButton);
+            closePopUpButton.click();
+        } catch (Exception e) {
+            return this;
+        }
         return this;
     }
 

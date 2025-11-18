@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.AuthorisationPage;
@@ -24,7 +24,7 @@ public class AuthorisationTest extends BaseTest{
         return new ChromeDriver(options);
     }
 
-    @BeforeClass(description = "Открываем страницу авторизации")
+    @BeforeMethod(description = "Открываем страницу авторизации")
     public void setUrl(){
         useIncognito = true;
         driver = getDriver();
