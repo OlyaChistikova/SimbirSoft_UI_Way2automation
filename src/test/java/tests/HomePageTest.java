@@ -5,8 +5,7 @@ import data.OutputData;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.MembershipPage;
@@ -15,16 +14,10 @@ public class HomePageTest extends BaseTest {
     private WebDriver driver;
     private HomePage homePage;
 
-    @BeforeClass(description = "Открываем страницу way2automation")
+    @BeforeMethod(description = "Открываем страницу way2automation")
     public void setUrl() {
         driver = getDriver();
         homePage = new HomePage(driver);
-    }
-
-    @AfterMethod(description = "Скролл вверх страницы")
-    public void scrollToTop() {
-        driver.manage().deleteAllCookies();
-        homePage.scrollToTop();
     }
 
     @Test(description = "Проверка наличия всех основных элементов страницы")
@@ -69,7 +62,7 @@ public class HomePageTest extends BaseTest {
     @Story("Проверка отображения блока навигации после прокрутки")
     @Severity(SeverityLevel.MINOR)
     public void checkNavigationBlockAfterScrollingTest() {
-        homePage.scrollToBottom();
+        homePage.closePopUp().scrollToBottom();
         Assert.assertTrue(homePage.checkDisplayBlockNavigation(), "Header not found");
         Assert.assertEquals(homePage.getBlockNavigationText(), OutputData.EXPECTED_BLOG_HEADER);
     }
@@ -80,7 +73,7 @@ public class HomePageTest extends BaseTest {
     @Story("Проверка отображения контактных данных в нижней части страницы")
     @Severity(SeverityLevel.NORMAL)
     public void displayAndCheckContactInfoFooterTest() {
-        homePage.scrollToBottom();
+        homePage.closePopUp().scrollToBottom();
         Assert.assertTrue(homePage.checkDisplayFooter());
         Assert.assertEquals(homePage.getFooterContactInfo(), OutputData.EXPECTED_CONTACTS_FOOTER);
     }
@@ -101,7 +94,7 @@ public class HomePageTest extends BaseTest {
     @Feature("Навигация")
     @Story("Заголовок страницы 'Membership'")
     @Severity(SeverityLevel.MINOR)
-    public void checkTitleUrlMembershipPage() {
+    public void checkTitleMembershipPage() {
         homePage.closePopUp();
         MembershipPage membershipPage = homePage.getMembershipPage();
         softAssert.assertEquals(membershipPage.getTitlePage(), "Membership");
