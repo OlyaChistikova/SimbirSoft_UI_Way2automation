@@ -21,7 +21,7 @@ public class SampleFormTest extends BaseTest{
         bankingHomePage = new BankingHomePage(driver);
     }
 
-    @Test(description = "Проверка регистрации")
+    @Test(description = "Проверка корректной регистрации")
     @Epic("Регистрация пользователя")
     @Feature("Форма регистрации")
     @Story("Успешная регистрация нового пользователя")
@@ -38,6 +38,18 @@ public class SampleFormTest extends BaseTest{
                         .setAboutTextArea(sampleFormPage.getLongestHobby())
                         .clickRegisterButton();
         Assert.assertTrue(sampleFormPage.checkVisibilitySuccessMessage());
+        Assert.assertEquals(sampleFormPage.getMessage(), OutputData.successRegistrMessage);
+    }
+
+    @Test(description = "Проверка некорректной регистрации без заполнения полей")
+    @Epic("Регистрация пользователя")
+    @Feature("Форма регистрации")
+    @Story("Регистрация нового пользователя без заполнения полей")
+    @Severity(SeverityLevel.MINOR)
+    public void checkUnSuccessRegistrationCustomerTest() {
+        sampleFormPage = bankingHomePage.openSampleForm();
+        Assert.assertTrue(sampleFormPage.checkVisibilityRegistrationFields());
+        sampleFormPage.clickRegisterButton();
         Assert.assertEquals(sampleFormPage.getMessage(), OutputData.successRegistrMessage);
     }
 }

@@ -5,14 +5,11 @@ import data.OutputData;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BankManagerLoginPage;
 import pages.BankingHomePage;
 import pages.CustAllert;
-
-import java.time.Duration;
 
 public class BankManagerLoginTest extends BaseTest{
     private WebDriver driver;
@@ -80,5 +77,23 @@ public class BankManagerLoginTest extends BaseTest{
         bankManagerLoginPage.clickButtonDeleteCustomer()
                 .clearSearchCustomerField();
         Assert.assertFalse(bankManagerLoginPage.getAllCustomerNames().contains(InputData.firstNameCustomer));
+    }
+
+    @Test(description = "Проверка удаления несуществующего клиента")
+    @Epic("Управление клиентами банка")
+    @Feature("Удаление клиента")
+    @Story("Удаление несуществующего клиента")
+    @Severity(SeverityLevel.MINOR)
+    public void deleteNonExistentCustomerTest() {
+        bankManagerLoginPage = bankingHomePage.openBankManagerLogin();
+        Assert.assertTrue(bankManagerLoginPage.openCustomersCatalog());
+
+        String nonExistentCustomer = "Аноним";
+        bankManagerLoginPage.setSearchCustomerField(nonExistentCustomer);
+
+        Assert.assertEquals(bankManagerLoginPage.getCustomerName(), nonExistentCustomer);
+        bankManagerLoginPage.clickButtonDeleteCustomer()
+                .clearSearchCustomerField();
+        Assert.assertFalse(bankManagerLoginPage.getAllCustomerNames().contains(nonExistentCustomer));
     }
 }
