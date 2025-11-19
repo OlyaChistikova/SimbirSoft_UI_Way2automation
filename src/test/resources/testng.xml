@@ -8,6 +8,7 @@
             <class name="tests.SampleFormTest"/>
             <class name="tests.BankManagerLoginTest"/>
             <class name="tests.CustomerLoginTest"/>
+            <class name="tests.SQLExercisesTest"/>
         </classes>
     </test>
 </suite>
