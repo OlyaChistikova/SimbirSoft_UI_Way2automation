@@ -42,4 +42,12 @@ public class InputData {
 
     // Сумма депозита для тестирования
     public static final String amountDeposit = PropertyProvider.getProperty("amountDeposit");
+
+    // Логин для авторизации SQL
+    public static final String loginSQLAuthorisation = PropertyProvider.getProperty("loginSQLAuthorisation");
+
+    // Файл с куками
+    public static String getCookieFilePath(){
+        return PropertyProvider.getProperty("cookie.file.path");
+    }
 }

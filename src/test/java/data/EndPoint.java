@@ -20,7 +20,8 @@ public enum EndPoint {
     CUSTOMERS(BANK_MANAGER.getUrl().concat("/list")),
     CUSTOMER_LOGIN(PropertyProvider.getProperty("home.url").concat("angularjs-protractor/banking/#/customer")),
     ACCOUNT(PropertyProvider.getProperty("home.url").concat("angularjs-protractor/banking/#/account")),
-    TRANSACTIONS(PropertyProvider.getProperty("home.url").concat("angularjs-protractor/banking/#/listTx"));
+    TRANSACTIONS(PropertyProvider.getProperty("home.url").concat("angularjs-protractor/banking/#/listTx")),
+    SQL(PropertyProvider.getProperty("sql.url"));
 
 
     private final String url;
