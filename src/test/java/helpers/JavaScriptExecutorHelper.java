@@ -4,6 +4,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
@@ -62,5 +63,41 @@ public class JavaScriptExecutorHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Функция сброса фокуса из поля ввода
+     * @param driver = объект вебдрайвера
+     * @param inputField = элемент поля ввода
+     * */
+    @Step("Сброс фокуса из поля ввода")
+    public void resetFocusFromField(WebDriver driver, WebElement inputField){
+        ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", inputField);
+    }
+
+    /**
+     * Функция проверки отсутствия фокуса в поле
+     * @param driver = объект вебдрайвера
+     * @param inputField = элемент поля ввода
+     * */
+    @Step("Проверка сброса фокуса из поля ввода")
+    public boolean checkResetFocusFromField(WebDriver driver, WebElement inputField){
+        Boolean isFocused = (Boolean) ((JavascriptExecutor) driver).executeScript(
+                "return document.activeElement === arguments[0];", inputField
+        );
+        return isFocused != null && isFocused;
+    }
+
+    /**
+     * Функция проверки наличия вертикального скрола на странице
+     * @param driver = объект вебдрайвера
+     * @return возвращает булевое значение
+     * */
+    @Step("Проверка наличия вертикального скрола")
+    public boolean checkVerticalScroll(WebDriver driver) {
+        Boolean hasVerticalScroll = (Boolean) ((JavascriptExecutor) driver).executeScript(
+                "return document.documentElement.scrollHeight > document.documentElement.clientHeight;"
+        );
+        return hasVerticalScroll != null && hasVerticalScroll;
     }
 }
