@@ -50,4 +50,25 @@ public class SQLExercisesTest extends BaseTest{
         driver.navigate().refresh();
         Assert.assertTrue(sqlExercisesPage.checkVisibilityLogoutImg());
     }
+
+    @Test(description = "Проверка сброса фокуса из поля ввода")
+    @Epic("Авторизация пользователя")
+    @Feature("Работа с окном авторизации")
+    @Story("Сброс фокуса из поля ввода")
+    @Severity(SeverityLevel.NORMAL)
+    public void resetFocusFromInputFieldTest() {
+        sqlExercisesPage.clickLoginField();
+        sqlExercisesPage.resetFocusFromField();
+        Assert.assertFalse(sqlExercisesPage.checkResetFocus(), "Input field is in focus");
+    }
+
+    @Test(description = "Проверка сброса фокуса из поля ввода")
+    @Epic("Авторизация пользователя")
+    @Feature("Работа с окном авторизации")
+    @Story("Наличие вертикального скролла")
+    @Severity(SeverityLevel.NORMAL)
+    public void checkVerticalScrollTest(){
+        sqlExercisesPage.scrollToButton();
+        Assert.assertTrue(sqlExercisesPage.checkVerticalScroll());
+    }
 }
