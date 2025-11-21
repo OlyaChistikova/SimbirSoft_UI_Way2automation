@@ -50,4 +50,7 @@ public class InputData {
     public static String getCookieFilePath(){
         return PropertyProvider.getProperty("cookie.file.path");
     }
+
+    // URL selenium grid
+    public static String getGridHubURL() { return PropertyProvider.getProperty("grid.hub.url"); }
 }
