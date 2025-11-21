@@ -84,6 +84,7 @@ public class HomePageTest extends BaseTest {
     @Story("Переход на страницу 'Membership'")
     @Severity(SeverityLevel.CRITICAL)
     public void openMembershipPage() {
+        homePage.closePopUp();
         MembershipPage membershipPage = homePage.getMembershipPage();
         Assert.assertEquals(membershipPage.getTitlePage(), OutputData.membershipTitle);
         Assert.assertEquals(driver.getCurrentUrl(), EndPoint.MEMBERSHIP.getUrl());
