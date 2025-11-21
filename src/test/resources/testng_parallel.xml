@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Parallel Test Suite" parallel="tests" thread-count="2">
+    <test name="TestSuite1">
+        <classes>
+            <class name="tests.BankManagerLoginTest">
+                <methods>
+                    <exclude name="deleteNonExistentCustomerTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="TestSuite2">
+        <classes>
+            <class name="tests.SQLExercisesTest"/>
+        </classes>
+    </test>
+</suite>
