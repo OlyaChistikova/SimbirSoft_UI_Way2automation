@@ -1,5 +1,7 @@
 package pages;
 
+import helpers.JavaScriptExecutorHelper;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,6 +11,7 @@ import static data.EndPoint.SQL;
 
 public class SQLExercisesPage {
     private WebDriver driver;
+    JavaScriptExecutorHelper jsHelper;
     private static final String URL = SQL.getUrl();
 
     /**
@@ -53,6 +56,7 @@ public class SQLExercisesPage {
      * @param login значение логина
      * @return текущий объект страницы для цепочки вызовов
      */
+    @Step("Задаем логин в поле логина")
     public SQLExercisesPage setLoginField(String login) {
         loginField.sendKeys(login);
         return this;
@@ -64,6 +68,7 @@ public class SQLExercisesPage {
      * @param password значение пароля
      * @return текущий объект страницы для цепочки вызовов
      */
+    @Step("Задаем пароль в поле пароля")
     public SQLExercisesPage setPasswordField(String password) {
         passwordField.sendKeys(password);
         return this;
@@ -72,6 +77,7 @@ public class SQLExercisesPage {
     /**
      * Нажатие на кнопку входа
      */
+    @Step("Кликаем по кнопке входа")
     public void clickSubmitButton() {
         submitButton.click();
     }
@@ -81,7 +87,52 @@ public class SQLExercisesPage {
      *
      * @return true, если элемент отображается
      */
+    @Step("Проверяем отображение кнопки выхода (logout)")
     public boolean checkVisibilityLogoutImg() {
         return logoutButton.isDisplayed();
+    }
+
+    /**
+     * Клик по полю логина (для фокусировки)
+     */
+    @Step("Кликаем по полю логина")
+    public void clickLoginField() {
+        loginField.click();
+    }
+
+    /**
+     * Сброс фокуса с поля логина с помощью JavaScript
+     */
+    @Step("Сбрасываем фокус с поля логина с помощью JavaScript")
+    public void resetFocusFromField() {
+        jsHelper.resetFocusFromField(driver, loginField);
+    }
+
+    /**
+     * Проверка, что фокус сброшен с поля логина
+     *
+     * @return true, если фокус сброшен
+     */
+    @Step("Проверяем, что фокус сброшен с поля логина")
+    public boolean checkResetFocus() {
+        return jsHelper.checkResetFocusFromField(driver, loginField);
+    }
+
+    /**
+     * Скролл страницы до нижней части
+     */
+    @Step("Прокручиваем страницу до нижней части")
+    public void scrollToButton() {
+        jsHelper.scrollToBottom();
+    }
+
+    /**
+     * Проверка вертикальной прокрутки страницы
+     *
+     * @return true, если страница прокручена
+     */
+    @Step("Проверяем вертикальную прокрутку страницы")
+    public boolean checkVerticalScroll() {
+        return jsHelper.checkVerticalScroll(driver);
     }
 }
