@@ -38,6 +38,12 @@
                 <suite.xml.file>src/test/resources/error_screen.xml</suite.xml.file>
             </properties>
         </profile>
+        <profile>
+            <id>tests_parallel</id>
+            <properties>
+                <suite.xml.file>src/test/resources/testng_parallel.xml</suite.xml.file>
+            </properties>
+        </profile>
     </profiles>
     <dependencyManagement>
         <dependencies>

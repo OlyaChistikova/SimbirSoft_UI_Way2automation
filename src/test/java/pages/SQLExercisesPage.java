@@ -13,6 +13,7 @@ public class SQLExercisesPage {
     private WebDriver driver;
     JavaScriptExecutorHelper jsHelper;
     private static final String URL = SQL.getUrl();
+    private JavaScriptExecutorHelper jsHelper;
 
     /**
      * Локатор поля ввода логина
@@ -61,7 +62,6 @@ public class SQLExercisesPage {
         loginField.sendKeys(login);
         return this;
     }
-
     /**
      * Установка значения в поле пароля
      *
@@ -73,7 +73,6 @@ public class SQLExercisesPage {
         passwordField.sendKeys(password);
         return this;
     }
-
     /**
      * Нажатие на кнопку входа
      */
@@ -81,7 +80,6 @@ public class SQLExercisesPage {
     public void clickSubmitButton() {
         submitButton.click();
     }
-
     /**
      * Проверка отображения элемента выхода (иконки logout)
      *
@@ -91,7 +89,7 @@ public class SQLExercisesPage {
     public boolean checkVisibilityLogoutImg() {
         return logoutButton.isDisplayed();
     }
-
+  
     /**
      * Клик по полю логина (для фокусировки)
      */
