@@ -24,7 +24,7 @@ public class BaseTest {
     protected boolean useIncognito = false;
     protected SoftAssert softAssert;
 
-    @BeforeMethod(description = "Настройка браузера перед запуском тестов", enabled = false)
+    @BeforeMethod(description = "Настройка браузера перед запуском тестов", enabled = true)
     public void setUp(){
         driver = createDriver();
         driver.manage().window().maximize();
@@ -33,7 +33,7 @@ public class BaseTest {
         softAssert = new SoftAssert();
     }
 
-    @BeforeMethod(description = "СетАп для параллельного тестирования", enabled = true)
+    @BeforeMethod(description = "СетАп для параллельного тестирования", enabled = false)
     public void parallelSetUp() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setPlatform(Platform.WIN11);
