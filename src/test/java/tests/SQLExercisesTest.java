@@ -51,7 +51,6 @@ public class SQLExercisesTest extends BaseTest{
         Assert.assertTrue(sqlExercisesPage.checkVisibilityLogoutImg());
     }
 
-
     @Test(description = "Проверка сброса фокуса из поля ввода")
     @Epic("Авторизация пользователя")
     @Feature("Работа с окном авторизации")

@@ -11,6 +11,7 @@ import static data.EndPoint.SQL;
 
 public class SQLExercisesPage {
     private WebDriver driver;
+    JavaScriptExecutorHelper jsHelper;
     private static final String URL = SQL.getUrl();
     private JavaScriptExecutorHelper jsHelper;
 
@@ -88,6 +89,7 @@ public class SQLExercisesPage {
     public boolean checkVisibilityLogoutImg() {
         return logoutButton.isDisplayed();
     }
+  
     /**
      * Клик по полю логина (для фокусировки)
      */

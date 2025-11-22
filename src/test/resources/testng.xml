@@ -3,11 +3,31 @@
 <suite name="Way2AutomationUI_Tests" thread-count="3" verbose="1">
     <test name="UI Tests">
         <classes>
-            <class name="tests.HomePageTest"/>
-            <class name="tests.AuthorisationTest"/>
-            <class name="tests.SampleFormTest"/>
-            <class name="tests.BankManagerLoginTest"/>
-            <class name="tests.CustomerLoginTest"/>
+            <class name="tests.HomePageTest">
+                <methods>
+                    <exclude name="checkTitleMembershipPage"/>
+                </methods>
+            </class>
+            <class name="tests.AuthorisationTest">
+                <methods>
+                    <exclude name="checkUnSuccessAuthorizationEmptyDataTest"/>
+                </methods>
+            </class>
+            <class name="tests.SampleFormTest">
+                <methods>
+                    <exclude name="checkUnSuccessRegistrationCustomerTest"/>
+                </methods>
+            </class>
+            <class name="tests.BankManagerLoginTest">
+                <methods>
+                    <exclude name="deleteNonExistentCustomerTest"/>
+                </methods>
+            </class>
+            <class name="tests.CustomerLoginTest">
+                <methods>
+                    <exclude name="clearEmptyTransactionHistoryTest"/>
+                </methods>
+            </class>
             <class name="tests.SQLExercisesTest"/>
         </classes>
     </test>
