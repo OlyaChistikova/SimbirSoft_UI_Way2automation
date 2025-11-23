@@ -13,7 +13,6 @@ public class SQLExercisesPage {
     private WebDriver driver;
     JavaScriptExecutorHelper jsHelper;
     private static final String URL = SQL.getUrl();
-    private JavaScriptExecutorHelper jsHelper;
 
     /**
      * Локатор поля ввода логина
