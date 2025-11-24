@@ -53,4 +53,10 @@ public class InputData {
 
     // URL selenium grid
     public static String getGridHubURL() { return PropertyProvider.getProperty("grid.hub.url"); }
+
+    // browser NAME
+    public static String getBrowser() { return PropertyProvider.getProperty("browser"); }
+
+    // browser version
+    public static String getVersionBrowser()  { return PropertyProvider.getProperty("versionBrowser"); };
 }

@@ -17,13 +17,6 @@ public class AuthorisationTest extends BaseTest{
     private WebDriver driver;
     private AuthorisationPage authorisationPage;
 
-    @Override
-    protected WebDriver createDriver() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--incognito");
-        return new ChromeDriver(options);
-    }
-
     @BeforeMethod(description = "Открываем страницу авторизации")
     public void setUrl(){
         useIncognito = true;
