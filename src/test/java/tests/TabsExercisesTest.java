@@ -32,10 +32,10 @@ public class TabsExercisesTest extends BaseTest {
         Set<String> handles = driver.getWindowHandles();
         Iterator<String> iterator = handles.iterator();
 
-        driver.switchTo().window(tabsExercisesPage.getBrowserTabByNumber(handles, iterator, driver.getWindowHandles().size()));
+        driver.switchTo().window(tabsExercisesPage.getBrowserTabByNumber(iterator, driver.getWindowHandles().size()));
 
-        softAssert.assertEquals(driver.getWindowHandles().size(), 3);
-        softAssert.assertEquals(driver.getCurrentUrl(), "http://way2automation.com/way2auto_jquery/frames-windows/defult1.html#");
+        softAssert.assertEquals(tabsExercisesPage.getTabIndexByHandle(handles), 3);
+        softAssert.assertEquals(driver.getCurrentUrl(), "https://way2automation.com/way2auto_jquery/frames-windows/defult1.html#");
         softAssert.assertAll();
     }
 }
