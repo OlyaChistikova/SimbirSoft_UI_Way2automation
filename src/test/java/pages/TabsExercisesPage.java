@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class TabsExercisesPage {
@@ -55,10 +56,26 @@ public class TabsExercisesPage {
      * Получение дескриптора вкладки браузера номера n
      */
     @Step("Получение дескриптора вкладки №")
-    public String getBrowserTabByNumber(Set<String> handles, Iterator<String> iterator, int tabIndex){
+    public String getBrowserTabByNumber(Iterator<String> iterator, int tabIndex){
         for (int i = 1; i < tabIndex; i++) {
             iterator.next();
         }
         return iterator.next();
+    }
+
+    /**
+     * Получение номера текущей вкладки
+     */
+    @Step("Получение номера текущей вкладки")
+    public int getTabIndexByHandle(Set<String> handles) {
+        String currentHandle = driver.getWindowHandle();
+        int index = 0;
+        for (String handle : handles) {
+            index++;
+            if (handle.equals(currentHandle)) {
+                return index;
+            }
+        }
+        throw new NoSuchElementException("Дескриптор вкладки не найден: " + currentHandle);
     }
 }
