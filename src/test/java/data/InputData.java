@@ -46,6 +46,9 @@ public class InputData {
     // Логин для авторизации SQL
     public static final String loginSQLAuthorisation = PropertyProvider.getProperty("loginSQLAuthorisation");
 
+    // Логин для alert
+    public static final String nameAlert = PropertyProvider.getProperty("alert_name");
+
     // Файл с куками
     public static String getCookieFilePath(){
         return PropertyProvider.getProperty("cookie.file.path");
