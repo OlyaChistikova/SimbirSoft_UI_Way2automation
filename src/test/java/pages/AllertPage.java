@@ -10,10 +10,10 @@ import org.openqa.selenium.support.PageFactory;
 /**
  * Класс для управления алертами в веб-приложении.
  */
-public class CustAllert {
+public class AllertPage {
     private WebDriver driver;
 
-    public CustAllert(WebDriver driver) {
+    public AllertPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -39,6 +39,17 @@ public class CustAllert {
         waitForAlert();
         Alert alert = driver.switchTo().alert();
         return alert.getText();
+    }
+
+    /**
+     * Возвращает текст алерта.
+     */
+    @Step("Вводим текст и принимаем всплывающее сообщение (алерт)")
+    public void setAlertText(String name) {
+        waitForAlert();
+        Alert alert = driver.switchTo().alert();
+        alert.sendKeys(name);
+        alert.accept();
     }
 
     /**
