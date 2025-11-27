@@ -22,8 +22,10 @@ public enum EndPoint {
     ACCOUNT(PropertyProvider.getProperty("home.url").concat("angularjs-protractor/banking/#/account")),
     TRANSACTIONS(PropertyProvider.getProperty("home.url").concat("angularjs-protractor/banking/#/listTx")),
     SQL(PropertyProvider.getProperty("sql.url")),
-    TABS(PropertyProvider.getProperty("tabs.url"));
-    DRAG_AND_DROP(PropertyProvider.getProperty("drag.drop.url"));
+    TABS(PropertyProvider.getProperty("tabs.url")),
+    DRAG_AND_DROP(PropertyProvider.getProperty("drag.drop.url")),
+    ALERTS(PropertyProvider.getProperty("alerts.url")),
+    BASIC_AUTH(PropertyProvider.getProperty("basic_auth"));
 
     private final String url;
 
