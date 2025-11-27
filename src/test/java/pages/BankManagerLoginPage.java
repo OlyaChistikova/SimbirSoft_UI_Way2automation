@@ -141,9 +141,9 @@ public class BankManagerLoginPage {
      * @return объект CustAllert
      */
     @Step("Нажимаем кнопку добавления клиента и получаем окно подтверждения операции")
-    public CustAllert clickButtonAddCust() {
+    public AllertPage clickButtonAddCust() {
         addCustButton.click();
-        return new CustAllert(driver);
+        return new AllertPage(driver);
     }
 
     /**
@@ -178,9 +178,9 @@ public class BankManagerLoginPage {
      * @return объект CustAllert
      */
     @Step("Нажимаем кнопку обработки открытия счета и получаем окно подтверждения операции")
-    public CustAllert clickProcessButton() {
+    public AllertPage clickProcessButton() {
         processButton.click();
-        return new CustAllert(driver);
+        return new AllertPage(driver);
     }
 
     /**
@@ -299,7 +299,7 @@ public class BankManagerLoginPage {
     public BankManagerLoginPage addCustomer() {
         openAddCustomerCatalog();
         setAddCustomerFields(InputData.firstNameCustomer, InputData.lastNameCustomer, InputData.postCodeCustomer);
-        CustAllert addCustAllert = this.clickButtonAddCust();
+        AllertPage addCustAllert = this.clickButtonAddCust();
         addCustAllert.accept();
         return this;
     }
@@ -312,7 +312,7 @@ public class BankManagerLoginPage {
     public BankManagerLoginPage openAccount() {
         openCatalogOpenAccount();
         setOpenAccountFields(InputData.firstNameCustomer + " " + InputData.lastNameCustomer, InputData.currencyCustomer);
-        CustAllert openCustAllert = this.clickProcessButton();
+        AllertPage openCustAllert = this.clickProcessButton();
         openCustAllert.accept();
         return this;
     }

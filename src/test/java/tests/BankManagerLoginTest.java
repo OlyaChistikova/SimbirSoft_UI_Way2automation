@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BankManagerLoginPage;
 import pages.BankingHomePage;
-import pages.CustAllert;
+import pages.AllertPage;
 
 public class BankManagerLoginTest extends BaseTest{
     private WebDriver driver;
@@ -30,7 +30,7 @@ public class BankManagerLoginTest extends BaseTest{
     public void addCustomerTest() {
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin();
         Assert.assertTrue(bankManagerLoginPage.openAddCustomerCatalog());
-        CustAllert addCustAllert = bankManagerLoginPage.setAddCustomerFields(InputData.firstNameCustomer, InputData.lastNameCustomer, InputData.postCodeCustomer)
+        AllertPage addCustAllert = bankManagerLoginPage.setAddCustomerFields(InputData.firstNameCustomer, InputData.lastNameCustomer, InputData.postCodeCustomer)
                 .clickButtonAddCust();
         Assert.assertTrue(addCustAllert.getAlertText().contains(OutputData.addCutAllertMessage), "Alert text does not match expected value");
         addCustAllert.accept();
@@ -51,7 +51,7 @@ public class BankManagerLoginTest extends BaseTest{
         bankingHomePage = new BankingHomePage(driver);
         bankManagerLoginPage = bankingHomePage.openBankManagerLogin();
         Assert.assertTrue(bankManagerLoginPage.openCatalogOpenAccount());
-        CustAllert openCustAllert = bankManagerLoginPage.setOpenAccountFields(InputData.firstNameCustomer + " " + InputData.lastNameCustomer, InputData.currencyCustomer)
+        AllertPage openCustAllert = bankManagerLoginPage.setOpenAccountFields(InputData.firstNameCustomer + " " + InputData.lastNameCustomer, InputData.currencyCustomer)
                 .clickProcessButton();
         Assert.assertTrue(openCustAllert.getAlertText().contains(OutputData.openCustAllertMessage), "Alert text does not match expected value");
         openCustAllert.accept();
